@@ -10,9 +10,9 @@
         <meta content="" name="keywords" />
 
         <!-- Favicons -->
-        <link href="{% static assets/img/favicon.png %}" rel="icon" />
+        <link href="{% static 'assets/img/favicon.png' %}" rel="icon" />
         <link
-            href="{% static assets/img/apple-touch-icon.png %}"
+            href="{% static 'assets/img/apple-touch-icon.png' %}"
             rel="apple-touch-icon"
         />
 
@@ -26,29 +26,32 @@
 
         <!-- Vendor CSS Files -->
         <link
-            href="assets/vendor/bootstrap/css/bootstrap.min.css"
+            href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}"
             rel="stylesheet"
         />
         <link
-            href="assets/vendor/bootstrap-icons/bootstrap-icons.css"
+            href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}"
             rel="stylesheet"
         />
         <link
-            href="assets/vendor/fontawesome-free/css/all.min.css"
+            href="{% static 'assets/vendor/fontawesome-free/css/all.min.css' %}"
             rel="stylesheet"
         />
         <link
-            href="assets/vendor/glightbox/css/glightbox.min.css"
+            href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}"
             rel="stylesheet"
         />
         <link
-            href="assets/vendor/swiper/swiper-bundle.min.css"
+            href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}"
             rel="stylesheet"
         />
-        <link href="assets/vendor/aos/aos.css" rel="stylesheet" />
+        <link
+            href="{% static 'assets/vendor/aos/aos.css' %}"
+            rel="stylesheet"
+        />
 
         <!-- Template Main CSS File -->
-        <link href="assets/css/main.css" rel="stylesheet" />
+        <link href="{% static 'assets/css/main.css' %}" rel="stylesheet" />
 
         <!-- =======================================================
   * Template Name: Logis
@@ -65,7 +68,10 @@
             <div
                 class="container-fluid container-xl d-flex align-items-center justify-content-between"
             >
-                <a href="index.html" class="logo d-flex align-items-center">
+                <a
+                    href="base_index.html"
+                    class="logo d-flex align-items-center"
+                >
                     <!-- Uncomment the line below if you also wish to use an image logo -->
                     <!-- <img src="assets/img/logo.png" alt=""> -->
                     <h1>Logis</h1>
@@ -75,12 +81,10 @@
                 <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
                 <nav id="navbar" class="navbar">
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="services.html">Services</a></li>
-                        <li>
-                            <a href="pricing.html" class="active">Pricing</a>
-                        </li>
+                        <li><a href="base_index.html">Home</a></li>
+                        <li><a href="base_about.html">About</a></li>
+                        <li><a href="base_services.html">Services</a></li>
+                        <li><a href="base_pricing.html">Pricing</a></li>
                         <li class="dropdown">
                             <a href="#"
                                 ><span>Drop Down</span>
@@ -120,9 +124,13 @@
                                 <li><a href="#">Drop Down 4</a></li>
                             </ul>
                         </li>
-                        <li><a href="contact.html">Contact</a></li>
                         <li>
-                            <a class="get-a-quote" href="get-a-quote.html"
+                            <a href="base_contact.html" class="active"
+                                >Contact</a
+                            >
+                        </li>
+                        <li>
+                            <a class="get-a-quote" href="base_get_a_quote.html"
                                 >Get a Quote</a
                             >
                         </li>
@@ -160,7 +168,7 @@
                 <nav>
                     <div class="container">
                         <ol>
-                            <li><a href="index.html">Home</a></li>
+                            <li><a href="base_index.html">Home</a></li>
                             <li>Pricing</li>
                         </ol>
                     </div>
@@ -435,7 +443,7 @@
                 <div class="row gy-4">
                     <div class="col-lg-5 col-md-12 footer-info">
                         <a
-                            href="index.html"
+                            href="base_index.html"
                             class="logo d-flex align-items-center"
                         >
                             <span>Logis</span>
@@ -526,14 +534,14 @@
         <div id="preloader"></div>
 
         <!-- Vendor JS Files -->
-        <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-        <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-        <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-        <script src="assets/vendor/aos/aos.js"></script>
-        <script src="assets/vendor/php-email-form/validate.js"></script>
+        <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+        <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+        <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+        <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+        <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
 
         <!-- Template Main JS File -->
-        <script src="assets/js/main.js"></script>
+        <script src="{% static 'assets/js/main.js' %}"></script>
     </body>
 </html>
