@@ -29,7 +29,10 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ['id', 'author', 'author_username', 'caption', 'image', 'created_at', 'likesCount', 'isLiked']
+        fields = ['id', 'title', 'hook_text', 'content', 
+                'caption', 'image', 'thumbnail_image', 'file_upload', 
+                'created_at', 'updated_at', 'author', 'category', 'view_count',
+                'author_username', 'likesCount', 'isLiked']
         read_only_fields = ['author']
 
     def get_isLiked(self, obj):
@@ -38,7 +41,7 @@ class PostSerializer(serializers.ModelSerializer):
             # Like 모델을 사용하여 현재 사용자가 게시물에 좋아요를 눌렀는지 확인
             return Like.objects.filter(post=obj, user=user).exists()
         return False
-    
+
     def get_author_username(self, obj):
         return obj.author.username  # 댓글 작성자의 사용자 이름 반환
 
