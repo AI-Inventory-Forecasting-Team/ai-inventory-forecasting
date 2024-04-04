@@ -25,6 +25,7 @@ class PostSerializer(serializers.ModelSerializer):
     # comments = CommentSerializer(many=True, read_only=True)
     likesCount = serializers.IntegerField(source='likes.count', read_only=True)
     isLiked = serializers.SerializerMethodField()
+    image = serializers.ImageField(use_url=True)
 
     class Meta:
         model = Post
@@ -45,3 +46,9 @@ class PostSerializer(serializers.ModelSerializer):
         # 현재 요청을 보낸 사용자를 게시물의 저자로 설정
         validated_data['author'] = self.context['request'].user
         return super().create(validated_data)
+    
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        if instance.image:
+            representation['image'] = self.context['request'].build_absolute_uri(instance.image.url)
+        return representation

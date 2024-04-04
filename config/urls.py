@@ -9,7 +9,7 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, Sp
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/accounts/', include('accounts.urls')),
-    path('posts/', include('posts.urls')),
+    path('api/posts/', include('posts.urls')),
     # path('comments/', include('comments.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'), # jwt 토큰 발급
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'), # jwt 토큰 갱신
