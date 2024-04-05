@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # django lib app
     "django_bootstrap5",
     "rest_framework",
+    'rest_framework_simplejwt',
     "corsheaders",
     # custom app
     "common",
@@ -47,7 +48,11 @@ INSTALLED_APPS = [
     "posts",
     "comments",
 ]
-
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
@@ -61,6 +66,7 @@ MIDDLEWARE = [
 
 cors_origin_allow_all = True
 cors_allow_credentials = True
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = "config.urls"
 
