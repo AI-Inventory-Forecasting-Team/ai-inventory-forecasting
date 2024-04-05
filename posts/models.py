@@ -1,6 +1,7 @@
 from django.db import models
 from config.settings import AUTH_USER_MODEL as User
 from pathlib import Path
+from PIL import Image
 
 
 class Category(models.Model):
@@ -58,6 +59,18 @@ class Post(models.Model):
 
     def get_file_ext(self):
         return Path(self.get_file_name()).suffix[1:]
+    
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)  # 모델 저장
+
+        if self.image:  # 이미지 필드에 파일이 있는지 확인
+            img = Image.open(self.image.path)  # 이미지 파일 열기
+
+            # 이미지 사이즈가 800x600이 아닌 경우에만 조정
+            if img.width != 800 or img.height != 600:
+                new_size = (800, 600)
+                img = img.resize(new_size, Image.Resampling.LANCZOS)  # 이미지 사이즈 조정
+                img.save(self.image.path)  # 변경된 이미지 저장
     
 
 class Like(models.Model):
