@@ -29,11 +29,11 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ['id', 'title', 'hook_text', 'content', 
-                'caption', 'image', 'thumbnail_image', 'file_upload', 
+        fields = ['id', 'title', 'content', 
+                'image', 'file_upload', 
                 'created_at', 'updated_at', 'author', 'category', 'view_count',
                 'author_username', 'likesCount', 'isLiked']
-        read_only_fields = ['author']
+        read_only_fields = ['author', 'created_at', 'updated_at', 'view_count', 'likesCount']
 
     def get_isLiked(self, obj):
         user = self.context['request'].user
