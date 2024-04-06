@@ -4,7 +4,7 @@ from .models import Comment
 
 class CommentSerializer(serializers.ModelSerializer):
     author_username = serializers.SerializerMethodField() # 댓글에 대한 유저의 이름을 보여주기 위해 추가
-    author_avatar_url = serializers.SerializerMethodField()  # 댓글 작성자의 아바타 URL을 보여주기 위해 추가
+
 
     class Meta:
         model = Comment
@@ -17,13 +17,6 @@ class CommentSerializer(serializers.ModelSerializer):
         Django REST Framework는 해당 필드에 대한 값을 얻기 위해 get_<field_name> 형식의 메서드를 호출
         '''
         return obj.author.username  # 댓글 작성자의 사용자 이름 반환
-    
-    def get_author_avatar_url(self, obj):
-        '''
-        댓글 작성자의 아바타 URL을 반환. 사용자가 소셜 계정을 통해 로그인했을 경우 해당 소셜 계정의
-        아바타 URL을 반환하고, 그렇지 않은 경우 기본 이미지 URL을 반환
-        '''
-        return obj.get_avatar_url()
 
     def create(self, validated_data):
         validated_data['author'] = self.context['request'].user
