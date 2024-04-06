@@ -48,7 +48,11 @@ INSTALLED_APPS = [
     "posts",
     "comments",
 ]
-
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -60,10 +64,10 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
-# cors_origin_allow_all = True
 cors_allow_credentials = True
-AUTH_USER_MODEL = 'accounts.User'
+CORS_ORIGIN_ALLOW_ALL = True
+
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 ROOT_URLCONF = "config.urls"
 
