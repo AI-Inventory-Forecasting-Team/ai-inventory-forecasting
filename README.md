@@ -225,23 +225,12 @@ gantt
     README : doc1, 2024-04-16, 1d
 ```
 
-* 아래 WBS는 엑셀을 이용했습니다. 양식은 [다운로드](./WBS_sample.xlsx) 받아 사용하세요. (출처 : https://techcommunity.microsoft.com/gxcuf89792/attachments/gxcuf89792/ExcelGeneral/204594/1/WBS_sample.xlsx)
-<img src="wbs_xlsx.png" width="80%">
-
-* 좀 더 가벼운 프로젝트는 아래 일정표를 사용하세요.
-* 아래 일정표는 [habitmaker.co.kr](https://habitmaker.co.kr) 에서 작성되었습니다.
-* 관련된 스택 표시는 [dev.habitmaker.co.kr](https://dev.habitmaker.co.kr) 에서 작성되었습니다.
-<img src="habit.jpg" width="50%">
-<img src="blob.png" width="50%">
 
 
 ## 5. 와이어프레임 / UI / BM
 
 ### 5.1 와이어프레임
-- 아래 페이지별 상세 설명, 더 큰 이미지로 하나하나씩 설명 필요
-<img src="ui.png" width="60%">
 
-- 와이어 프레임은 디자인을 할 수 있다면 '피그마'를, 디자인을 할 수 없다면 '카카오 오븐'으로 쉽게 만들 수 있습니다.
 
 ### 5.2 화면 설계
 - 화면은 gif파일로 업로드해주세요.
@@ -313,63 +302,8 @@ gantt
 
 
 ## 6. 데이터베이스 모델링(ERD)
+![Untitled (3)](https://github.com/AI-Inventory-Forecasting-Team/ai-inventory-forecasting/assets/113663639/466a14e8-0749-418d-ae03-5c8fb3cd2295)
 
-* 아래 ERD는 머메이드를 사용했습니다.
-```mermaid
-erDiagram
-    user ||--o{ post : write
-    user {
-      integer id PK
-      varchar username
-      varchar password
-      image profile_image
-      datetime created_at
-      varchar ip_address
-      datetime last_login
-    }
-    post }|--|{ tag : contains
-    post ||--o| category : has
-    post {
-      integer id PK
-      varchar title
-      text content
-      file file_upload
-      image image_upload
-      datetime created_at
-      datetime updated_at
-      varchar writer
-      integer user_id FK
-      integer hits
-      integer tags FK
-      varchar category FK
-    }
-    post ||--o{ comment : contains
-    comment ||--o{ comment : contains
-    comment {
-      integer id PK
-      integer parent FK
-      text comment
-      comment comment_reply FK
-      datetime created_at
-      datetime updated_at
-    }
-    
-    tag {
-      integer id PK
-      varchar name
-    }
-    
-    
-    category {
-      integer id PK
-      varchar name
-    }
-```
-
-* 아래 ERD는 [ERDCloud](https://www.erdcloud.com/)를 사용했습니다.
-<img src="erd.png" width="60%">
-
-* https://dbdiagram.io/home도 많이 사용합니다.
 
 ## 7. Architecture
 
