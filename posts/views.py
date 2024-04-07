@@ -29,6 +29,18 @@ class PostCreateView(generics.CreateAPIView):
         serializer.save(author=self.request.user)
 
 
+class PostDeleteView(generics.DestroyAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    permission_classes = [IsAuthenticated]  # 인증된 사용자만 접근 가능
+
+    def delete(self, request, *args, **kwargs):
+        post = self.get_object()
+        if post.author != request.user:
+            return response.Response({'message': '본인이 작성한 게시글만 삭제할 수 있습니다.'},status=status.HTTP_403_FORBIDDEN)
+        return super().delete(request, *args, **kwargs)
+
+
 class LikeView(views.APIView):
     permission_classes = [permissions.IsAuthenticated]
 
