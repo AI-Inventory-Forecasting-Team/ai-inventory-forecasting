@@ -270,7 +270,46 @@ gantt
 ## 5. 와이어프레임 / UI / BM
 
 ### 5.1 와이어프레임
-
+<table>
+    <tbody>
+        <tr>
+            <td>랜딩 페이지</td>
+            <td>로그인 랜딩 페이지</td>
+        </tr>
+        <tr>
+            <td>
+		<img src="samples/main.png" width="100%">
+            </td>
+            <td>
+                <img src="samples/main_login.png" width="100%">
+            </td>
+        </tr>
+        <tr>
+            <td>로그인</td>
+            <td>소개 페이지</td>
+        </tr>
+        <tr>
+            <td>
+                <img src="samples/login_form.png" width="100%">
+            </td>
+            <td>
+                <img src="samples/about.png" width="100%">
+            </td>
+        </tr>
+        <tr>
+            <td>서비스 페이지</td>
+            <td>수정 예정</td>
+        </tr>
+        <tr>
+            <td>
+                <img src="samples/services.png" width="100%">
+            </td>
+            <td>
+                <img src="#" width="100%">
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 ### 5.2 화면 설계
 - 화면은 gif파일로 업로드해주세요.
