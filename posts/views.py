@@ -8,10 +8,16 @@ from rest_framework.permissions import IsAuthenticated
 from .serializers import PostSerializer, CategorySerializer
 from .models import Post, Like, Category
 
+# Filters
+from .filters import PostFilter
+from django_filters.rest_framework import DjangoFilterBackend
+
 
 class PostListView(generics.ListAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = PostFilter
     permission_classes = [permissions.IsAuthenticated]  # 인증된 사용자만 접근 가능
 
 
