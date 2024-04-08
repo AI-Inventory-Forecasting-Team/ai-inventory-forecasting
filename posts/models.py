@@ -6,13 +6,9 @@ from PIL import Image
 
 class Category(models.Model):
     name = models.CharField(max_length=30, unique=True)
-    slug = models.SlugField(max_length=200, unique=True, allow_unicode=True)
 
     def __str__(self):
         return self.name
-
-    def get_absolute_url(self):
-        return f"/blog/category/{self.slug}/"
 
     def post_count(self):
         return self.post_set.count()
@@ -51,9 +47,6 @@ class Post(models.Model):
     def __str__(self):
         return f"{self.title}"
 
-    def get_absolute_url(self):
-        return f"/blog/{self.pk}/"
-
     def get_file_name(self):
         return self.file_upload.name
 
@@ -82,4 +75,4 @@ class Like(models.Model):
         unique_together = ('post', 'user')
 
     def __str__(self):
-        return f'{self.user.username} likes {self.post.caption}'
+        return f'{self.user.username} likes {self.post.title}'

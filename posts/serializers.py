@@ -1,13 +1,13 @@
 from rest_framework import serializers
-from .models import Post, Like
+from .models import Post, Like, Category
 
 
 class PostSerializer(serializers.ModelSerializer):
     author_username = serializers.SerializerMethodField()
-    # comments = CommentSerializer(many=True, read_only=True)
     likesCount = serializers.IntegerField(source='likes.count', read_only=True)
     isLiked = serializers.SerializerMethodField()
     image = serializers.ImageField(use_url=True)
+    category = serializers.StringRelatedField()
 
     class Meta:
         model = Post
@@ -37,3 +37,9 @@ class PostSerializer(serializers.ModelSerializer):
         if instance.image:
             representation['image'] = self.context['request'].build_absolute_uri(instance.image.url)
         return representation
+    
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['id', 'name']
