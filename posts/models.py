@@ -9,9 +9,7 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-
-    def post_count(self):
-        return self.post_set.count()
+    
 
     class Meta:
         verbose_name_plural = "Categories"
@@ -23,9 +21,6 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
-
-    def get_absolute_url(self):
-        return f"/blog/tag/{self.slug}/"
     
 
 class Post(models.Model):

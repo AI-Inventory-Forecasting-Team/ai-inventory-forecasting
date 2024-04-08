@@ -7,13 +7,14 @@ class PostSerializer(serializers.ModelSerializer):
     likesCount = serializers.IntegerField(source='likes.count', read_only=True)
     isLiked = serializers.SerializerMethodField()
     image = serializers.ImageField(use_url=True)
-    category = serializers.StringRelatedField()
+    category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
+    category_name = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Post
         fields = ['id', 'title', 'content', 
                 'image', 'file_upload', 
-                'created_at', 'updated_at', 'author', 'category', 'view_count',
+                'created_at', 'updated_at', 'author', 'category', 'category_name', 'view_count',
                 'author_username', 'likesCount', 'isLiked']
         read_only_fields = ['author', 'created_at', 'updated_at', 'view_count', 'likesCount']
 
@@ -26,6 +27,9 @@ class PostSerializer(serializers.ModelSerializer):
 
     def get_author_username(self, obj):
         return obj.author.username  # 댓글 작성자의 사용자 이름 반환
+    
+    def get_category_name(self, obj):
+        return obj.category.name if obj.category else None
 
     def create(self, validated_data):
         # 현재 요청을 보낸 사용자를 게시물의 저자로 설정

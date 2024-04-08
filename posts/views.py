@@ -5,8 +5,8 @@ from rest_framework import generics, views, status, response, permissions
 from rest_framework.permissions import IsAuthenticated
 
 # Models
-from .serializers import PostSerializer
-from .models import Post, Like
+from .serializers import PostSerializer, CategorySerializer
+from .models import Post, Like, Category
 
 
 class PostListView(generics.ListAPIView):
@@ -51,6 +51,12 @@ class PostUpdateView(generics.UpdateAPIView):
         if post.author != request.user:
             return response.Response({'message': '본인이 작성한 게시글만 수정할 수 있습니다.'},status=status.HTTP_403_FORBIDDEN)
         return super().update(request, *args, **kwargs)
+    
+
+class CategoryListView(generics.ListAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = [permissions.IsAuthenticated]  # 인증된 사용자만 접근 가능
 
 class LikeView(views.APIView):
     permission_classes = [permissions.IsAuthenticated]
