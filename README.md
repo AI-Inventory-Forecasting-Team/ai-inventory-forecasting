@@ -76,19 +76,23 @@
 
 - posts 앱
   
-|app:posts|HTTP Method|설명|로그인 권한 필요|작성자 권한 필요|
-|:-|:-|:-|:-:|:-:|
-|{id}/|GET|게시물 상세 조회|||
-|{id}/like/|POST|게시물 좋아요|✅||
-|{id}/like/|DELETE|게시물 좋아요 취소|✅|✅|
-|{post_id}/comments/|GET|게시물 댓글 조회|||
-|{post_id}/comments/{id}/|GET|댓글 상세 조회|||
-|{post_id}/comments/{id}/|PUT|댓글 수정|✅|✅|
-|{post_id}/comments/{id}/|PATCH|댓글 부분 수정|✅|✅|
-|{post_id}/comments/{id}/|DELETE|댓글 삭제|✅|✅|
-|{post_id}/comments/create/|POST|댓글 작성|✅||
-|create/|POST|게시물 작성|✅||
-|list/|GET|게시판 리스트 조회|||
+| app:posts | HTTP Method | 경로 | 설명 | 로그인 권한 필요 | 작성자 권한 필요 |
+|-----------|-------------|-----------------------------|------------------|------------------|-------------------|
+| posts | GET | /api/posts/{id}/ | 게시물 상세 조회 | | |
+| posts | DELETE | /api/posts/{id}/delete/ | 게시물 삭제 | ✅ | ✅ |
+| posts | POST | /api/posts/{id}/like/ | 게시물 좋아요 | ✅ | |
+| posts | DELETE | /api/posts/{id}/like/ | 게시물 좋아요 취소 | ✅ | ✅ |
+| posts | PUT | /api/posts/{id}/update/ | 게시물 수정 | ✅ | ✅ |
+| posts | PATCH | /api/posts/{id}/update/ | 게시물 부분 수정 | ✅ | ✅ |
+| posts | GET | /api/posts/{post_id}/comments/ | 게시물 댓글 조회 | | |
+| posts | GET | /api/posts/{post_id}/comments/{id}/ | 댓글 상세 조회 | | |
+| posts | PUT | /api/posts/{post_id}/comments/{id}/ | 댓글 수정 | ✅ | ✅ |
+| posts | PATCH | /api/posts/{post_id}/comments/{id}/ | 댓글 부분 수정 | ✅ | ✅ |
+| posts | DELETE | /api/posts/{post_id}/comments/{id}/ | 댓글 삭제 | ✅ | ✅ |
+| posts | POST | /api/posts/{post_id}/comments/create/ | 댓글 작성 | ✅ | |
+| posts | POST | /api/posts/create/ | 게시물 작성 | ✅ | |
+| posts | GET | /api/posts/list/ | 게시판 리스트 조회 | | |
+
 
 - schema 앱
   
@@ -99,7 +103,23 @@
 
 ## 3. 요구사항 명세와 기능 명세
 ### 3.1 요구사항 명세
-
+- **(필수)인공지능 개발사 랜딩 페이지:**
+    - 회사 소개, 서비스 소개, 연락처 등의 기본 정보를 제공
+        - 재고 수량 예측 서비스의 특징과 이점 설명
+        - 사용자가 문의할 수 있는 연락처 정보와 양식 제공
+        - 반응형 웹 디자인(부트스트랩)을 적용하여 다양한 기기에서 접근 가능
+- **(필수)블로그 기능:**
+    - 물류 산업 동향, 재고 관리 팁, 회사 소식 등 관련 콘텐츠를 게시할 수 있는 블로그 기능 구현
+        - 게시물 작성, 수정, 삭제 기능 제공
+        - 카테고리, 태그 등을 활용하여 게시물을 분류 및 검색
+        - 사용자 댓글 기능을 통해 방문자와의 소통을 활성화
+- **(챌린지)데이터 처리 및 예측:**
+    - 사용자가 제공한 1년 연간 재고 수량 데이터를 처리하고 분석할 수 있는 챗봇 기능 구현
+        - 사용자의 연간 주문량 엑슬 워크시트 입력 데이터를 기반으로 재고 수량 예측 결과를 사용자에게 제공
+- (**필수)보안 및 개인정보 보호:**
+    - 사용자의 개인정보와 데이터를 안전하게 보호할 수 있는 보안 체계 마련
+        - 데이터 암호화, 접근 제어, 로그 관리 등의 보안 조치 적용
+        - 개인정보 처리 방침을 수립하고 이를 사용자에게 공개
 
 
 
@@ -270,7 +290,46 @@ gantt
 ## 5. 와이어프레임 / UI / BM
 
 ### 5.1 와이어프레임
-
+<table>
+    <tbody>
+        <tr>
+            <td>랜딩 페이지</td>
+            <td>로그인 랜딩 페이지</td>
+        </tr>
+        <tr>
+            <td>
+		<img src="samples/main.png" width="100%">
+            </td>
+            <td>
+                <img src="samples/main_login.png" width="100%">
+            </td>
+        </tr>
+        <tr>
+            <td>로그인</td>
+            <td>소개 페이지</td>
+        </tr>
+        <tr>
+            <td>
+                <img src="samples/login_form.png" width="100%">
+            </td>
+            <td>
+                <img src="samples/about.png" width="100%">
+            </td>
+        </tr>
+        <tr>
+            <td>서비스 페이지</td>
+            <td>수정 예정</td>
+        </tr>
+        <tr>
+            <td>
+                <img src="samples/services.png" width="100%">
+            </td>
+            <td>
+                <img src="#" width="100%">
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 ### 5.2 화면 설계
 - 화면은 gif파일로 업로드해주세요.
