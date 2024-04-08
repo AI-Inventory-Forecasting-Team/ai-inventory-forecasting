@@ -76,19 +76,23 @@
 
 - posts 앱
   
-|app:posts|HTTP Method|설명|로그인 권한 필요|작성자 권한 필요|
-|:-|:-|:-|:-:|:-:|
-|{id}/|GET|게시물 상세 조회|||
-|{id}/like/|POST|게시물 좋아요|✅||
-|{id}/like/|DELETE|게시물 좋아요 취소|✅|✅|
-|{post_id}/comments/|GET|게시물 댓글 조회|||
-|{post_id}/comments/{id}/|GET|댓글 상세 조회|||
-|{post_id}/comments/{id}/|PUT|댓글 수정|✅|✅|
-|{post_id}/comments/{id}/|PATCH|댓글 부분 수정|✅|✅|
-|{post_id}/comments/{id}/|DELETE|댓글 삭제|✅|✅|
-|{post_id}/comments/create/|POST|댓글 작성|✅||
-|create/|POST|게시물 작성|✅||
-|list/|GET|게시판 리스트 조회|||
+| app:posts | HTTP Method | 경로 | 설명 | 로그인 권한 필요 | 작성자 권한 필요 |
+|-----------|-------------|-----------------------------|------------------|------------------|-------------------|
+| posts | GET | /api/posts/{id}/ | 게시물 상세 조회 | | |
+| posts | DELETE | /api/posts/{id}/delete/ | 게시물 삭제 | ✅ | ✅ |
+| posts | POST | /api/posts/{id}/like/ | 게시물 좋아요 | ✅ | |
+| posts | DELETE | /api/posts/{id}/like/ | 게시물 좋아요 취소 | ✅ | ✅ |
+| posts | PUT | /api/posts/{id}/update/ | 게시물 수정 | ✅ | ✅ |
+| posts | PATCH | /api/posts/{id}/update/ | 게시물 부분 수정 | ✅ | ✅ |
+| posts | GET | /api/posts/{post_id}/comments/ | 게시물 댓글 조회 | | |
+| posts | GET | /api/posts/{post_id}/comments/{id}/ | 댓글 상세 조회 | | |
+| posts | PUT | /api/posts/{post_id}/comments/{id}/ | 댓글 수정 | ✅ | ✅ |
+| posts | PATCH | /api/posts/{post_id}/comments/{id}/ | 댓글 부분 수정 | ✅ | ✅ |
+| posts | DELETE | /api/posts/{post_id}/comments/{id}/ | 댓글 삭제 | ✅ | ✅ |
+| posts | POST | /api/posts/{post_id}/comments/create/ | 댓글 작성 | ✅ | |
+| posts | POST | /api/posts/create/ | 게시물 작성 | ✅ | |
+| posts | GET | /api/posts/list/ | 게시판 리스트 조회 | | |
+
 
 - schema 앱
   
