@@ -9,6 +9,9 @@ from .views import (
     CategoryListView,
     LikeCreateView,
     LikeDestroyView,
+    BookmarkCreateView,
+    BookmarkListView,
+    BookmarkDestroyView,
 )
 
 urlpatterns = [
@@ -20,5 +23,8 @@ urlpatterns = [
     path("<int:pk>/update/", PostUpdateView.as_view(), name="post_update"), # 게시물 수정
     path("<int:pk>/like/", LikeCreateView.as_view(), name="like-create"), # 좋아요 생성
     path("<int:pk>/unlike/", LikeDestroyView.as_view(), name="like-delete"), # 좋아요 삭제
+    path("bookmarks/", BookmarkListView.as_view(), name="bookmark-list"), # 북마크 리스트
+    path('bookmarks/create/', BookmarkCreateView.as_view(), name='bookmark-create'), # 북마크 생성
+    path('bookmarks/<int:id>/', BookmarkDestroyView.as_view(), name='bookmark-delete'), # 북마크 삭제
     path('<int:post_id>/comments/', include('comments.urls')), # 댓글 리스트, 생성
 ]

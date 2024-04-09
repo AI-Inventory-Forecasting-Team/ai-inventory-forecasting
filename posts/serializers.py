@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Post, Like, Category
+from .models import Post, Like, Category, Bookmark
 from django.core.files.base import ContentFile
 import requests
 
@@ -90,3 +90,11 @@ class LikeSerializer(serializers.ModelSerializer):
         like_count = instance.post.likes.count()
         instance.delete()
         return {'like_count': like_count}
+    
+
+class BookmarkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Bookmark
+        fields = ['id', 'post', 'created_at', 'user']
+        read_only_fields = ['id', 'created_at', 'user']
+
