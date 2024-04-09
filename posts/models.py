@@ -4,6 +4,7 @@ from pathlib import Path
 from PIL import Image
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
+from django.urls import reverse
 
 
 class Category(models.Model):
@@ -41,6 +42,9 @@ class Post(models.Model):
 
     def get_file_ext(self):
         return Path(self.get_file_name()).suffix[1:]
+    
+    def get_absolute_url(self):
+        return reverse('post_detail', kwargs={'pk': self.pk})
     
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)  # 모델 저장
