@@ -1,11 +1,12 @@
-from django.shortcuts import get_object_or_404
+from django.http import Http404
 
 # Rest Framework Modules
-from rest_framework import generics, views, status, response, permissions
+from rest_framework import generics, status, response, permissions
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.exceptions import ValidationError
 
 # Models
-from .serializers import PostSerializer, CategorySerializer
+from .serializers import PostSerializer, CategorySerializer, LikeSerializer
 from .models import Post, Like, Category
 
 # Filters
@@ -63,26 +64,34 @@ class CategoryListView(generics.ListAPIView):
     serializer_class = CategorySerializer
     permission_classes = [permissions.IsAuthenticated]  # 인증된 사용자만 접근 가능
 
-class LikeView(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
 
-    def post(self, request, post_id):
-        post = get_object_or_404(Post, id=post_id)
-        like, created = Like.objects.get_or_create(post=post, user=request.user)
+class LikeCreateView(generics.CreateAPIView):
+    queryset = Like.objects.all()
+    serializer_class = LikeSerializer
+    permission_classes = [IsAuthenticated]
 
-        # 좋아요를 검색한 후 좋아요가 없으면 생성(like 생성된 객체, created가 생성 여부 판단)
-        # created == True : 좋아요가 클릭이 안되어 있어서 새로 생성했다.
-        # created == False : 좋아요가 클릭이 되어서 생성하지 못했다.
+    def perform_create(self, serializer):
+        # 여기에서 '좋아요'가 이미 존재하는지 확인하고, 존재한다면 생성하지 않습니다.
+        user = self.request.user
+        post_id = self.kwargs.get('pk')
+        post = Post.objects.get(id=post_id)
+        like_exists = Like.objects.filter(user=user, post=post).exists()
 
-        if not created:
-            # 이미 좋아요가 존재하는 경우, 409 Conflict 반환
-            return response.Response(status=status.HTTP_409_CONFLICT)
+        if like_exists:
+            raise ValidationError('You have already liked this post.')
 
-        # 좋아요가 생성되었으면 201 응답
-        return response.Response(status=status.HTTP_201_CREATED)
+        serializer.save(user=user, post=post)
 
-    def delete(self, request, post_id):
-        post = get_object_or_404(Post, id=post_id) # 게시물이 존재하지 않으면 404 에러
-        like = get_object_or_404(Like, post=post, user=request.user) # 좋아요가 존재하지 않으면 404 에러
-        like.delete()
-        return response.Response(status=status.HTTP_204_NO_CONTENT) # 좋아요가 삭제되었으면 204 응답
+
+class LikeDestroyView(generics.DestroyAPIView):
+    queryset = Like.objects.all()
+    serializer_class = LikeSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        user = self.request.user
+        post_id = self.kwargs.get('pk')
+        like = Like.objects.filter(user=user, post_id=post_id).first()
+        if like is None:
+            raise Http404
+        return like
