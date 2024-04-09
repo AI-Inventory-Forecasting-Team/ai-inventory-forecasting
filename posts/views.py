@@ -8,10 +8,15 @@ from rest_framework.permissions import IsAuthenticated
 from .serializers import PostSerializer, CategorySerializer
 from .models import Post, Like, Category
 
+# Filters
+from rest_framework.filters import SearchFilter
+
 
 class PostListView(generics.ListAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    filter_backends = [SearchFilter]
+    search_fields = ['title', 'category__name', 'author__username']
     permission_classes = [permissions.IsAuthenticated]  # 인증된 사용자만 접근 가능
 
 
