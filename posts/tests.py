@@ -9,7 +9,7 @@ class PostFilterTest(TestCase):
         hong_user = CustomUserFactory(username="홍길동")
         PostFactory(author=hong_user, title="홍길동의 게시물", category__name="기타")
         PostFactory(title="Django 테스트", category__name="프로그래밍")  
-        PostFactory(title="Django 고급", category__name="여행")  # "프로그래밍" 카테고리로 두 번째 게시물 추가
+        PostFactory(title="Django 고급", category__name="여행")  
         PostFactory(title="요리 레시피", category__name="요리")  
 
     def test_filter_by_title(self):
