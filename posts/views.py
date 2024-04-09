@@ -1,4 +1,5 @@
 from django.http import Http404
+from django.contrib.contenttypes.models import ContentType
 
 # Rest Framework Modules
 from rest_framework import generics, status, response, permissions
@@ -7,7 +8,7 @@ from rest_framework.response import Response
 
 # Models
 from .serializers import PostSerializer, CategorySerializer, LikeSerializer
-from .models import Post, Like, Category
+from .models import Post, Like, Category, ViewCount
 
 # Filters
 from rest_framework.filters import SearchFilter
@@ -24,6 +25,23 @@ class PostListView(generics.ListAPIView):
 class PostDetailView(generics.RetrieveAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+
+    def get(self, request, *args, **kwargs):
+        response = super().get(request, *args, **kwargs)
+        post = self.get_object()
+        user = self.request.user
+
+        if user.is_authenticated:
+            content_type = ContentType.objects.get_for_model(post)
+            viewed, created = ViewCount.objects.get_or_create(
+                user=user,
+                content_type=content_type,
+                object_id=post.id,
+            )
+            if created:
+                post.view_count += 1
+                post.save(update_fields=['view_count'])
+        return response
 
 
 class PostCreateView(generics.CreateAPIView):
