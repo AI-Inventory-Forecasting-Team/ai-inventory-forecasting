@@ -1,14 +1,17 @@
 from rest_framework import serializers
 from .models import Post, Like, Category
+from django.core.files.base import ContentFile
+import requests
 
 
 class PostSerializer(serializers.ModelSerializer):
     author_username = serializers.SerializerMethodField()
     likesCount = serializers.IntegerField(source='likes.count', read_only=True)
     isLiked = serializers.SerializerMethodField()
-    image = serializers.ImageField(use_url=True)
+    image = serializers.ImageField(use_url=True, required=False, allow_null=True)
     category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
     category_name = serializers.SerializerMethodField(read_only=True)
+    file_upload = serializers.FileField(required=False, allow_null=True)
 
     class Meta:
         model = Post
@@ -34,6 +37,15 @@ class PostSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         # 현재 요청을 보낸 사용자를 게시물의 저자로 설정
         validated_data['author'] = self.context['request'].user
+
+        # 사용자가 이미지를 업로드하지 않았을 경우 기본 이미지 설정
+        if 'image' not in validated_data:
+            image_url = 'https://picsum.photos/800/600'
+            response = requests.get(image_url)
+            if response.status_code == 200:
+                # 이미지 파일의 이름 설정
+                file_name = 'default_image.jpg'
+                validated_data['image'] = ContentFile(response.content, name=file_name)
         return super().create(validated_data)
     
     def to_representation(self, instance):
