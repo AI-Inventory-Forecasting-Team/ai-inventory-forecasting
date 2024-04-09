@@ -59,3 +59,26 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ['id', 'name']
+
+
+class LikeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Like
+        fields = ['id', 'post', 'user']
+        read_only_fields = ['user']
+    
+    def create(self, validated_data):
+        user = self.context['request'].user
+        post = validated_data['post']
+        like, created = Like.objects.get_or_create(user=user, post=post)
+        return like
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['like_count'] = instance.post.likes.count()
+        return representation
+    
+    def destroy(self, instance):
+        like_count = instance.post.likes.count()
+        instance.delete()
+        return {'like_count': like_count}

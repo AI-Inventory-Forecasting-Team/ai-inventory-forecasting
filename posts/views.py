@@ -1,12 +1,14 @@
-from django.shortcuts import get_object_or_404
+from django.http import Http404
+from django.contrib.contenttypes.models import ContentType
 
 # Rest Framework Modules
-from rest_framework import generics, views, status, response, permissions
+from rest_framework import generics, status, response, permissions
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 # Models
-from .serializers import PostSerializer, CategorySerializer
-from .models import Post, Like, Category
+from .serializers import PostSerializer, CategorySerializer, LikeSerializer
+from .models import Post, Like, Category, ViewCount
 
 # Filters
 from rest_framework.filters import SearchFilter
@@ -23,6 +25,23 @@ class PostListView(generics.ListAPIView):
 class PostDetailView(generics.RetrieveAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+
+    def get(self, request, *args, **kwargs):
+        response = super().get(request, *args, **kwargs)
+        post = self.get_object()
+        user = self.request.user
+
+        if user.is_authenticated:
+            content_type = ContentType.objects.get_for_model(post)
+            viewed, created = ViewCount.objects.get_or_create(
+                user=user,
+                content_type=content_type,
+                object_id=post.id,
+            )
+            if created:
+                post.view_count += 1
+                post.save(update_fields=['view_count'])
+        return response
 
 
 class PostCreateView(generics.CreateAPIView):
@@ -63,26 +82,51 @@ class CategoryListView(generics.ListAPIView):
     serializer_class = CategorySerializer
     permission_classes = [permissions.IsAuthenticated]  # 인증된 사용자만 접근 가능
 
-class LikeView(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
 
-    def post(self, request, post_id):
-        post = get_object_or_404(Post, id=post_id)
-        like, created = Like.objects.get_or_create(post=post, user=request.user)
+class LikeCreateView(generics.CreateAPIView):
+    queryset = Like.objects.all()
+    serializer_class = LikeSerializer
+    permission_classes = [IsAuthenticated]
 
-        # 좋아요를 검색한 후 좋아요가 없으면 생성(like 생성된 객체, created가 생성 여부 판단)
-        # created == True : 좋아요가 클릭이 안되어 있어서 새로 생성했다.
-        # created == False : 좋아요가 클릭이 되어서 생성하지 못했다.
+    def perform_create(self, serializer):
+        user = self.request.user
+        post_id = self.kwargs.get('pk')
+        post = Post.objects.get(id=post_id)
+        like_exists = Like.objects.filter(user=user, post=post).exists()
 
-        if not created:
-            # 이미 좋아요가 존재하는 경우, 409 Conflict 반환
-            return response.Response(status=status.HTTP_409_CONFLICT)
+        if like_exists:
+            # 이미 좋아요한 상태라면 기존 좋아요 삭제
+            existing_like = Like.objects.get(user=user, post=post)
+            existing_like.delete()
+            like_count = post.likes.count()
+            return Response({'like_count': like_count})
+        else:
+            # 새로운 좋아요 생성
+            serializer.save(user=user, post=post)
 
-        # 좋아요가 생성되었으면 201 응답
-        return response.Response(status=status.HTTP_201_CREATED)
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        like_count = instance.post.likes.count()
+        return Response({'like_count': like_count})
 
-    def delete(self, request, post_id):
-        post = get_object_or_404(Post, id=post_id) # 게시물이 존재하지 않으면 404 에러
-        like = get_object_or_404(Like, post=post, user=request.user) # 좋아요가 존재하지 않으면 404 에러
-        like.delete()
-        return response.Response(status=status.HTTP_204_NO_CONTENT) # 좋아요가 삭제되었으면 204 응답
+
+class LikeDestroyView(generics.DestroyAPIView):
+    queryset = Like.objects.all()
+    serializer_class = LikeSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        user = self.request.user
+        post_id = self.kwargs.get('pk')
+        post = Post.objects.get(id=post_id)
+        like = Like.objects.filter(user=user, post=post).first()
+        if like is None:
+            raise Http404
+        return like
+    
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        like_count = instance.post.likes.count()
+        return Response({'like_count': like_count})

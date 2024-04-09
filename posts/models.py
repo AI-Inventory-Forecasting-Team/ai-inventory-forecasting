@@ -2,6 +2,8 @@ from django.db import models
 from config.settings import AUTH_USER_MODEL as User
 from pathlib import Path
 from PIL import Image
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
 
 
 class Category(models.Model):
@@ -63,3 +65,14 @@ class Like(models.Model):
 
     def __str__(self):
         return f'{self.user.username} likes {self.post.title}'
+    
+
+class ViewCount(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+    viewed_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'content_type', 'object_id')
