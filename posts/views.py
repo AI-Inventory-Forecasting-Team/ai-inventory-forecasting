@@ -3,7 +3,7 @@ from django.http import Http404
 # Rest Framework Modules
 from rest_framework import generics, status, response, permissions
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.exceptions import ValidationError
+from rest_framework.response import Response
 
 # Models
 from .serializers import PostSerializer, CategorySerializer, LikeSerializer
@@ -71,16 +71,26 @@ class LikeCreateView(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-        # 여기에서 '좋아요'가 이미 존재하는지 확인하고, 존재한다면 생성하지 않습니다.
         user = self.request.user
         post_id = self.kwargs.get('pk')
         post = Post.objects.get(id=post_id)
         like_exists = Like.objects.filter(user=user, post=post).exists()
 
         if like_exists:
-            raise ValidationError('You have already liked this post.')
+            # 이미 좋아요한 상태라면 기존 좋아요 삭제
+            existing_like = Like.objects.get(user=user, post=post)
+            existing_like.delete()
+            like_count = post.likes.count()
+            return Response({'like_count': like_count})
+        else:
+            # 새로운 좋아요 생성
+            serializer.save(user=user, post=post)
 
-        serializer.save(user=user, post=post)
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        like_count = instance.post.likes.count()
+        return Response({'like_count': like_count})
 
 
 class LikeDestroyView(generics.DestroyAPIView):
@@ -91,7 +101,14 @@ class LikeDestroyView(generics.DestroyAPIView):
     def get_object(self):
         user = self.request.user
         post_id = self.kwargs.get('pk')
-        like = Like.objects.filter(user=user, post_id=post_id).first()
+        post = Post.objects.get(id=post_id)
+        like = Like.objects.filter(user=user, post=post).first()
         if like is None:
             raise Http404
         return like
+    
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        like_count = instance.post.likes.count()
+        return Response({'like_count': like_count})

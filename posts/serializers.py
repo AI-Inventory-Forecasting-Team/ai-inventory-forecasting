@@ -75,5 +75,10 @@ class LikeSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation['post'] = instance.post.id  # 예시로, 게시물 ID만 반환
+        representation['like_count'] = instance.post.likes.count()
         return representation
+    
+    def destroy(self, instance):
+        like_count = instance.post.likes.count()
+        instance.delete()
+        return {'like_count': like_count}
