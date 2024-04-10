@@ -7,8 +7,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 # Models
-from .serializers import PostSerializer, CategorySerializer, LikeSerializer
-from .models import Post, Like, Category, ViewCount
+from .serializers import PostSerializer, CategorySerializer, LikeSerializer, BookmarkSerializer
+from .models import Post, Like, Category, ViewCount, Bookmark
 
 # Filters
 from rest_framework.filters import SearchFilter
@@ -130,3 +130,34 @@ class LikeDestroyView(generics.DestroyAPIView):
         self.perform_destroy(instance)
         like_count = instance.post.likes.count()
         return Response({'like_count': like_count})
+    
+
+class BookmarkCreateView(generics.CreateAPIView):
+    queryset = Bookmark.objects.all()
+    serializer_class = BookmarkSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class BookmarkListView(generics.ListAPIView):
+    serializer_class = BookmarkSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Bookmark.objects.filter(user=self.request.user)
+    
+
+class BookmarkDestroyView(generics.DestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = Bookmark.objects.all()
+    serializer_class = BookmarkSerializer
+    lookup_field = 'id'
+
+    def get_queryset(self):
+        return self.queryset.filter(user=self.request.user)
+
+    def perform_destroy(self, instance):
+        if instance.user == self.request.user:
+            instance.delete()

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Post, Like, Category
+from .models import Post, Like, Category, Bookmark
 from django.core.files.base import ContentFile
 import requests
 
@@ -12,13 +12,14 @@ class PostSerializer(serializers.ModelSerializer):
     category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
     category_name = serializers.SerializerMethodField(read_only=True)
     file_upload = serializers.FileField(required=False, allow_null=True)
+    full_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Post
         fields = ['id', 'title', 'content', 
                 'image', 'file_upload', 
                 'created_at', 'updated_at', 'author', 'category', 'category_name', 'view_count',
-                'author_username', 'likesCount', 'isLiked']
+                'author_username', 'likesCount', 'isLiked', 'full_url']
         read_only_fields = ['author', 'created_at', 'updated_at', 'view_count', 'likesCount']
 
     def get_isLiked(self, obj):
@@ -54,6 +55,13 @@ class PostSerializer(serializers.ModelSerializer):
             representation['image'] = self.context['request'].build_absolute_uri(instance.image.url)
         return representation
     
+    def get_full_url(self, obj):
+        # request context를 사용하여 절대 URL 생성
+        request = self.context.get('request')
+        if request is None:
+            return ''
+        return request.build_absolute_uri(obj.get_absolute_url())
+    
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -82,3 +90,11 @@ class LikeSerializer(serializers.ModelSerializer):
         like_count = instance.post.likes.count()
         instance.delete()
         return {'like_count': like_count}
+    
+
+class BookmarkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Bookmark
+        fields = ['id', 'post', 'created_at', 'user']
+        read_only_fields = ['id', 'created_at', 'user']
+
