@@ -68,31 +68,36 @@
 - accounts 앱
   
 |app:accounts|HTTP Method|설명|로그인 권한 필요|작성자 권한 필요|
-|:-|:-|:-|:-:|:-:|
-|profile/|GET|프로필 조회|✅||
-|signup/|POST|회원가입|||
-|token/|POST|로그인 토큰 발급|||
-|token/refresh/|POST|만료 토큰 재발급|||
+|--------------|-------------|--------------|------------------|------------------|
+| profile/     | GET         | 프로필 조회   | ✅               | ✅               |
+| signup/      | POST        | 회원가입      |                  |                  |
+| token/       | POST        | 로그인 토큰 발급 |                |                  |
+| token/refresh/ | POST      | 만료 토큰 재발급 |                |                  |
+
 
 - posts 앱
   
-| app:posts | HTTP Method | 경로 | 설명 | 로그인 권한 필요 | 작성자 권한 필요 |
-|-----------|-------------|-----------------------------|------------------|------------------|-------------------|
-| posts | GET | /api/posts/{id}/ | 게시물 상세 조회 | | |
-| posts | DELETE | /api/posts/{id}/delete/ | 게시물 삭제 | ✅ | ✅ |
-| posts | POST | /api/posts/{id}/like/ | 게시물 좋아요 | ✅ | |
-| posts | DELETE | /api/posts/{id}/like/ | 게시물 좋아요 취소 | ✅ | ✅ |
-| posts | PUT | /api/posts/{id}/update/ | 게시물 수정 | ✅ | ✅ |
-| posts | PATCH | /api/posts/{id}/update/ | 게시물 부분 수정 | ✅ | ✅ |
-| posts | GET | /api/posts/{post_id}/comments/ | 게시물 댓글 조회 | | |
-| posts | GET | /api/posts/{post_id}/comments/{id}/ | 댓글 상세 조회 | | |
-| posts | PUT | /api/posts/{post_id}/comments/{id}/ | 댓글 수정 | ✅ | ✅ |
-| posts | PATCH | /api/posts/{post_id}/comments/{id}/ | 댓글 부분 수정 | ✅ | ✅ |
-| posts | DELETE | /api/posts/{post_id}/comments/{id}/ | 댓글 삭제 | ✅ | ✅ |
-| posts | POST | /api/posts/{post_id}/comments/create/ | 댓글 작성 | ✅ | |
-| posts | POST | /api/posts/create/ | 게시물 작성 | ✅ | |
-| posts | GET | /api/posts/list/ | 게시판 리스트 조회 | | |
+| app:posts | HTTP Method | 설명               | 로그인 권한 필요 | 작성자 권한 필요 |
+|------------|-------------|---------------------|------------------|-------------------|
+| posts      | GET         | /api/posts/{id}/    | 게시물 상세 조회 |                    |
+| posts      | DELETE      | /api/posts/{id}/delete/ | 게시물 삭제 | ✅              | ✅ |
+| posts      | POST        | /api/posts/{id}/like/ | 게시물 좋아요  | ✅              |   |
+| posts      | DELETE      | /api/posts/{id}/unlike/ | 게시물 좋아요 취소 | ✅          |   |
+| posts      | PUT         | /api/posts/{id}/update/ | 게시물 수정   | ✅              | ✅ |
+| posts      | PATCH       | /api/posts/{id}/update/ | 게시물 부분 수정 | ✅           | ✅ |
+| posts      | POST        | /api/posts/create/ | 게시물 작성      | ✅               |   |
+| posts      | GET         | /api/posts/list/   | 게시판 리스트 조회 |                  |   |
 
+- comments 앱
+
+| app:comments | HTTP Method | 설명                     | 로그인 권한 필요 | 작성자 권한 필요 |
+|--------------|-------------|---------------------------|------------------|-------------------|
+| comments     | GET         | /api/posts/{post_id}/comments/ | 게시물 댓글 조회 |                |   |
+| comments     | GET         | /api/posts/{post_id}/comments/{id}/ | 댓글 상세 조회 |              |   |
+| comments     | PUT         | /api/posts/{post_id}/comments/{id}/ | 댓글 수정 | ✅            | ✅ |
+| comments     | PATCH       | /api/posts/{post_id}/comments/{id}/ | 댓글 부분 수정 | ✅         | ✅ |
+| comments     | DELETE      | /api/posts/{post_id}/comments/{id}/ | 댓글 삭제 | ✅            | ✅ |
+| comments     | POST        | /api/posts/{post_id}/comments/create/ | 댓글 작성 | ✅           |   |
 
 - schema 앱
   
@@ -124,61 +129,64 @@
 
 
 ### 3.2 기능 명세
-- accounts 앱
 
 ```mermaid
-graph TD
-    A[Accounts 앱] --> B(profile/ GET)
-    A --> C(signup/ POST)
-    A --> D(token/ POST)
-    A --> E(token/refresh/ POST)
+classDiagram
+  class Profile {
+    +GET /api/accounts/profile/
+  }
 
-    B -. "로그인 권한 필요" .-> B
-    C -. "로그인 권한 없음" .-> C
-    D -. "로그인 권한 없음" .-> D
-    E -. "로그인 권한 없음" .-> E
-```
+  class Signup {
+    +POST /api/accounts/signup/
+  }
 
-- posts 앱
-```mermaid
-graph TD
-    F[Posts 앱] --> G(list/ GET)
-    F --> H(create/ POST)
-    F --> I(id/ GET)
-    F --> J(id/like/ POST)
-    F --> K(id/like/ DELETE)
+  class Post {
+    +GET /api/posts/id/
+    +DELETE /api/posts/id/delete/
+    +POST /api/posts/id/like/
+    +DELETE /api/posts/id/unlike/
+    +PUT /api/posts/id/update/
+    +PATCH /api/posts/id/update/
+    +POST /api/posts/create/
+    +GET /api/posts/list/
+  }
 
-    G -. "로그인 권한 없음" .-> G
-    H -. "로그인 권한 필요" .-> H
-    I -. "로그인 권한 없음" .-> I
-    J -. "로그인 권한 필요" .-> J
-    K -. "로그인 권한 필요, 작성자 권한 필요" .-> K
-```
+  class Comment {
+    +GET /api/posts/post_id/comments/
+    +GET /api/posts/post_id/comments/id/
+    +PUT /api/posts/post_id/comments/id/
+    +PATCH /api/posts/post_id/comments/id/
+    +DELETE /api/posts/post_id/comments/id/
+    +POST /api/posts/post_id/comments/create/
+  }
 
-- comments 앱
-```mermaid
-graph TD
-    L[Comments 앱] --> M(post_id/comments/ GET)
-    L --> N(post_id/comments/id/ GET)
-    L --> O(post_id/comments/id/ PUT)
-    L --> P(post_id/comments/id/ PATCH)
-    L --> Q(post_id/comments/id/ DELETE)
-    L --> R(post_id/comments/create/ POST)
+  class Bookmark {
+    +GET /api/posts/bookmarks/
+    +DELETE /api/posts/bookmarks/id/
+    +POST /api/posts/bookmarks/create/
+  }
 
-    M -. "로그인 권한 없음" .-> M
-    N -. "로그인 권한 없음" .-> N
-    O -. "로그인 권한 필요, 작성자 권한 필요" .-> O
-    P -. "로그인 권한 필요, 작성자 권한 필요" .-> P
-    Q -. "로그인 권한 필요, 작성자 권한 필요" .-> Q
-    R -. "로그인 권한 필요" .-> R
-```
+  class Category {
+    +GET /api/posts/categories/
+  }
 
-- schema
-```mermaid
-graph TD
-    R[Schema 앱] --> S(schema/ GET)
+  class Schema {
+    +GET /api/schema/
+  }
 
-    S -. "로그인 권한 없음" .-> S
+  class Token {
+    +POST /api/token/
+    +POST /api/token/refresh/
+  }
+
+  Profile --> Signup : Uses
+  Post --> Comment : Contains
+  Post --> Bookmark : Contains
+  Post --> Category : Categorized by
+  Profile --> Post : Creates/Interacts with
+  Token --> Profile : Authenticates
+
+
 ```
 
 ## 4. 프로젝트 구조와 개발 일정
@@ -227,6 +235,7 @@ graph TD
  ┃ ┃ ┗ 📜__init__.py
  ┃ ┣ 📜admin.py
  ┃ ┣ 📜apps.py
+ ┃ ┣ 📜factories.py
  ┃ ┣ 📜models.py
  ┃ ┣ 📜serializers.py
  ┃ ┣ 📜tests.py
@@ -401,7 +410,8 @@ gantt
 
 
 ## 6. 데이터베이스 모델링(ERD)
-![Untitled (3)](https://github.com/AI-Inventory-Forecasting-Team/ai-inventory-forecasting/assets/113663639/466a14e8-0749-418d-ae03-5c8fb3cd2295)
+![Untitled (4)](https://github.com/AI-Inventory-Forecasting-Team/ai-inventory-forecasting/assets/113663639/b5a5464b-e7b3-4495-9378-b2595c94a54a)
+
 
 
 ## 7. Architecture
