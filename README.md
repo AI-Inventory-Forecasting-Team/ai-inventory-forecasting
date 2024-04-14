@@ -67,26 +67,33 @@
 
 - accounts 앱
   
-|app:accounts|HTTP Method|설명|로그인 권한 필요|작성자 권한 필요|
-|--------------|-------------|--------------|------------------|------------------|
-| profile/     | GET         | 프로필 조회   | ✅               | ✅               |
-| signup/      | POST        | 회원가입      |                  |                  |
-| token/       | POST        | 로그인 토큰 발급 |                |                  |
-| token/refresh/ | POST      | 만료 토큰 재발급 |                |                  |
+| app:accounts      | HTTP Method | 설명           | 로그인 권한 필요 | 작성자 권한 필요 |
+|-------------------|-------------|----------------|------------------|------------------|
+| profile/          | GET         | 프로필 조회     | ✅               | ✅               |
+| profile/delete/   | DELETE      | 프로필 삭제     | ✅               | ✅               |
+| profile/update/   | PUT         | 프로필 전체 수정 | ✅               | ✅               |
+| profile/update/   | PATCH       | 프로필 부분 수정 | ✅               | ✅               |
+| signup/           | POST        | 회원가입        |                  |                  |
+| token/            | POST        | 로그인 토큰 발급 |                  |                  |
+| token/refresh/    | POST        | 만료 토큰 재발급 |                  |                  |
 
 
 - posts 앱
   
-| app:posts | HTTP Method | 설명               | 로그인 권한 필요 | 작성자 권한 필요 |
-|------------|-------------|---------------------|------------------|-------------------|
-| posts      | GET         | /api/posts/{id}/    | 게시물 상세 조회 |                    |
-| posts      | DELETE      | /api/posts/{id}/delete/ | 게시물 삭제 | ✅              | ✅ |
-| posts      | POST        | /api/posts/{id}/like/ | 게시물 좋아요  | ✅              |   |
-| posts      | DELETE      | /api/posts/{id}/unlike/ | 게시물 좋아요 취소 | ✅          |   |
-| posts      | PUT         | /api/posts/{id}/update/ | 게시물 수정   | ✅              | ✅ |
-| posts      | PATCH       | /api/posts/{id}/update/ | 게시물 부분 수정 | ✅           | ✅ |
-| posts      | POST        | /api/posts/create/ | 게시물 작성      | ✅               |   |
-| posts      | GET         | /api/posts/list/   | 게시판 리스트 조회 |                  |   |
+| app:posts          | HTTP Method | 설명               | 로그인 권한 필요 | 작성자 권한 필요 |
+|--------------------|-------------|---------------------|------------------|------------------|
+| {id}/              | GET         | 게시물 상세 조회    |                  |                  |
+| {id}/delete/       | DELETE      | 게시물 삭제         | ✅               | ✅               |
+| {id}/like/         | POST        | 게시물 좋아요       | ✅               |                  |
+| {id}/unlike/       | DELETE      | 게시물 좋아요 취소   | ✅               |                  |
+| {id}/update/       | PUT         | 게시물 수정         | ✅               | ✅               |
+| {id}/update/       | PATCH       | 게시물 부분 수정    | ✅               | ✅               |
+| create/            | POST        | 게시물 작성         | ✅               |                  |
+| list/              | GET         | 게시판 리스트 조회  |                  |                  |
+| bookmarks/         | GET         | 북마크 조회          | ✅               |                  |
+| bookmarks/{id}/    | DELETE      | 북마크 삭제          | ✅               |                  |
+| bookmarks/create/  | POST        | 북마크 생성          | ✅               |                  |
+| categories/        | GET         | 카테고리 조회        |                  |                  |
 
 - comments 앱
 
