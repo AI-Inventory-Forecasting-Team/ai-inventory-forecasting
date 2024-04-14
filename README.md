@@ -1,4 +1,4 @@
-# 인공지능 물류 예측 모델 서비스 
+# 물류 기술 블로그 및 재고 예측 서비스
 
 ## 목차
   * [1. 목표와 기능](#1-목표와-기능)
@@ -6,9 +6,10 @@
     + [1.2 기능](#12-기능)
     + [1.3 팀 구성](#13-팀-구성)
   * [2. 개발 환경 및 배포 URL](#2-개발-환경-및-배포-url)
-    + [2.1 개발 환경](#21-개발-환경)
-    + [2.2 배포 URL](#22-배포-url)
-    + [2.3 URL 구조](#23-url-구조)
+    + [2.1 개발 기술](#21-개발-기술)
+    + [2.2 개발 환경](#22-개발-환경)
+    + [2.3 배포 URL](#23-배포-url)
+    + [2.4 URL 구조](#24-url-구조)
   * [3. 요구사항 명세와 기능 명세](#3-요구사항-명세와-기능-명세)
     + [3.1 요구사항 명세](#31-요구사항-명세)
     + [3.2 기능 명세](#32-기능-명세)
@@ -73,12 +74,36 @@
 </table>
 
 ## 2. 개발 환경 및 배포 URL
-### 2.1 개발 환경
-- Web Framework
-  - Django 4.2.11 (Python 3.11.7)
-- 서비스 배포 환경
-  - Amazon Lightsail
-### 2.2 배포 URL
+### 2.1 개발 기술
+
+**[기술 - FE]**
+</br>
+</br>
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white">
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white">
+<img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white">
+ <img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white">
+</br>
+</br>
+**[기술 - BE]**
+</br>
+</br>
+<img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">
+<img src="https://img.shields.io/badge/django-092E20?style=for-the-badge&logo=django&logoColor=white">
+</br>
+</br>
+**[기술 - DB]**
+</br>
+</br>
+<img src="https://img.shields.io/badge/sqlite-003B57?style=for-the-badge&logo=sqlite&logoColor=white">
+<img src="https://img.shields.io/badge/postgresql-3776AB?style=for-the-badge&logo=postgresql&logoColor=white">
+</br>
+</br>
+
+### 2.2 개발 환경
+<img src="https://img.shields.io/badge/Lightsail-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white"> <img src="https://img.shields.io/badge/nginx-009639?style=for-the-badge&logo=nginx&logoColor=white"> <img src="https://img.shields.io/badge/gunicorn-499848?style=for-the-badge&logo=gunicorn&logoColor=white"> <img src="https://img.shields.io/badge/visualstudio-007ACC?style=for-the-badge&logo=visualstudio&logoColor=white"> <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/discord-5865F2?style=for-the-badge&logo=discord&logoColor=white">
+
+### 2.3 배포 URL
 - URL
 - 테스트용 계정
   ```
@@ -86,7 +111,7 @@
   pw : test1234!
   ```
 
-### 2.3 URL 구조
+### 2.4 URL 구조
 
 - accounts 앱
   
