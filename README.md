@@ -141,10 +141,18 @@
 classDiagram
   class Profile {
     +GET /api/accounts/profile/
+    +DELETE /api/accounts/profile/delete/
+    +PUT /api/accounts/profile/update/
+    +PATCH /api/accounts/profile/update/
   }
 
   class Signup {
     +POST /api/accounts/signup/
+  }
+
+  class Token {
+    +POST /api/accounts/token/
+    +POST /api/accounts/token/refresh/
   }
 
   class Post {
@@ -158,15 +166,6 @@ classDiagram
     +GET /api/posts/list/
   }
 
-  class Comment {
-    +GET /api/posts/post_id/comments/
-    +GET /api/posts/post_id/comments/id/
-    +PUT /api/posts/post_id/comments/id/
-    +PATCH /api/posts/post_id/comments/id/
-    +DELETE /api/posts/post_id/comments/id/
-    +POST /api/posts/post_id/comments/create/
-  }
-
   class Bookmark {
     +GET /api/posts/bookmarks/
     +DELETE /api/posts/bookmarks/id/
@@ -177,16 +176,21 @@ classDiagram
     +GET /api/posts/categories/
   }
 
+  class Comment {
+    +GET /api/posts/post_id/comments/
+    +GET /api/posts/post_id/comments/id/
+    +PUT /api/posts/post_id/comments/id/
+    +PATCH /api/posts/post_id/comments/id/
+    +DELETE /api/posts/post_id/comments/id/
+    +POST /api/posts/post_id/comments/create/
+  }
+
   class Schema {
     +GET /api/schema/
   }
 
-  class Token {
-    +POST /api/token/
-    +POST /api/token/refresh/
-  }
-
   Profile --> Signup : Uses
+  Profile --> Token : Uses
   Post --> Comment : Contains
   Post --> Bookmark : Contains
   Post --> Category : Categorized by
