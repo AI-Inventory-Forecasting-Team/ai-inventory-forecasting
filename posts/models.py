@@ -5,6 +5,7 @@ from PIL import Image
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.urls import reverse
+from ckeditor.fields import RichTextField
 
 
 class Category(models.Model):
@@ -20,7 +21,7 @@ class Category(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=30)
-    content = models.TextField()
+    content = RichTextField()
     image = models.ImageField(upload_to="posts/images/%Y/%m/%d/", blank=True)
     file_upload = models.FileField(upload_to="posts/files/%Y/%m/%d", blank=True)
 
