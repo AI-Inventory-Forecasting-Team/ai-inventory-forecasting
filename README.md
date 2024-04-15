@@ -444,7 +444,7 @@ gantt
         </tr>
         <tr>
             <td>
-                <img src="picture/signup.gif" width="100%" >
+                <img src="picture/sign_up.gif" width="100%" >
             </td>
             <td>
                 <img src="picture/profile.gif" width="100%" >
