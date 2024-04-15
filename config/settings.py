@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     "corsheaders",
     'django_filters',
+    'ckeditor',
     # custom app
     "accounts",
     "posts",
