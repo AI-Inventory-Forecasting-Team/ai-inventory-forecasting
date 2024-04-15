@@ -404,7 +404,7 @@ gantt
         </tr>
         <tr>
             <td>
-                <img src="samples/login_form.png" width="50%">
+                <img src="samples/login_form.png" width="70%">
             </td>
             <td>
                 <img src="samples/about.png" width="100%">
