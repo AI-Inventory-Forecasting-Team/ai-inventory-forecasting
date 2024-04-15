@@ -432,7 +432,7 @@ gantt
         </tr>
         <tr>
             <td>
-		<img src="picture/main.gif" width="100%" style="max-width: 200%;">
+		<img src="picture/main.gif" width="10%" >
             </td>
             <td>
                 <img src="picture/login.gif" width="100%">
