@@ -435,7 +435,7 @@ gantt
 		<img src="picture/main.gif" width="100%">
             </td>
             <td>
-                <img src="ui2.png" width="100%">
+                <img src="picture/login.gif" width="100%">
             </td>
         </tr>
         <tr>
