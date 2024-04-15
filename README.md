@@ -471,7 +471,7 @@ gantt
 	        <img src="ui3.png" width="100%">
             </td>
             <td>
-                <img src="ui3.png" width="100%">
+                <img src="picture/post.gif" width="100%">
             </td>
         </tr>
         <tr>
