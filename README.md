@@ -432,7 +432,7 @@ gantt
         </tr>
         <tr>
             <td>
-		<img src="picture/main.gif" width="50%" >
+		<img src="picture/main.gif" width="100%" >
             </td>
             <td>
                 <img src="picture/login.gif" width="100%">
@@ -444,10 +444,10 @@ gantt
         </tr>
         <tr>
             <td>
-                <img src="ui3.png" width="100%">
+                <img src="picture/signup.gif" width="100%" >
             </td>
             <td>
-                <img src="ui3.png" width="100%">
+                <img src="picture/profile.gif" width="100%" >
             </td>
         </tr>
         <tr>
