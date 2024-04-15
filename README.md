@@ -507,15 +507,12 @@ gantt
 
 ## 7. Architecture
 
-* 아래 Architecture 설계도는 ChatGPT에게 아키텍처를 설명하고 mermaid로 그려달라 요청한 것입니다.
 ```mermaid
+
 graph TD;
     CI[GitHub CI/CD] -->|Deploys| LS[AWS Lightsail];
     A[Django Application] -->|Uses| DRF[Django REST Framework];
-    A -->|Real-time communication| C[Django Channels];
-    C -->|Messaging backend| R[Redis];
-    A -->|Connects to| DB[postgresql];
-    A -->|Static & Media Files| S3[AWS S3];
+    A -->|Connects to| DB[sqlite3];
     FE[Frontend] -->|Deployed on| LS;
     LS -->|Hosts| A;
     LS -->|Hosts| FE;
@@ -524,10 +521,9 @@ graph TD;
     classDef aws fill:#ff9,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5;
     classDef ci fill:#9cf,stroke:#33f,stroke-width:2px;
     
-    class A,DRF,C,DB framework;
+    class A,DRF framework;
     class LS,S3 aws;
     class CI ci;
-
 ```
 
 
