@@ -502,7 +502,7 @@ gantt
                 <img src="picture/detail_play.gif" width="100%" >
             </td>
             <td>
-                <img src="picture/comment.gif" width="100%" >
+                <img src="picture/comment_play.gif" width="100%" >
             </td>
         </tr>
     </tbody>
