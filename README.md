@@ -463,7 +463,7 @@ gantt
         </tr>
         <tr>
             <td>
-                <img src="picture/sign_up.gif" width="100%" >
+                <img src="picture/signup_play.gif" width="100%" >
             </td>
             <td>
                 <img src="picture/profile.gif" width="100%" >
@@ -490,7 +490,7 @@ gantt
 	        <img src="picture/delete.gif" width="100%" >
             </td>
             <td>
-                <img src="picture/post.gif" width="100%">
+                <img src="picture/post_play.gif" width="100%">
             </td>
         </tr>
         <tr>
