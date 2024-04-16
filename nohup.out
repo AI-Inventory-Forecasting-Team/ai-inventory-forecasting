@@ -1,0 +1,40 @@
+[2024-04-15 19:48:30 +0900] [4762] [INFO] Starting gunicorn 21.2.0
+[2024-04-15 19:48:30 +0900] [4762] [INFO] Listening at: http://127.0.0.1:8000 (4762)
+[2024-04-15 19:48:30 +0900] [4762] [INFO] Using worker: sync
+[2024-04-15 19:48:30 +0900] [4763] [INFO] Booting worker with pid: 4763
+[2024-04-15 19:48:30 +0900] [4764] [INFO] Booting worker with pid: 4764
+[2024-04-15 19:48:45 +0900] [4765] [INFO] Starting gunicorn 21.2.0
+[2024-04-15 19:48:45 +0900] [4765] [ERROR] Connection in use: ('127.0.0.1', 8000)
+[2024-04-15 19:48:45 +0900] [4765] [ERROR] Retrying in 1 second.
+[2024-04-15 19:48:46 +0900] [4765] [ERROR] Connection in use: ('127.0.0.1', 8000)
+[2024-04-15 19:48:46 +0900] [4765] [ERROR] Retrying in 1 second.
+[2024-04-15 19:48:47 +0900] [4765] [ERROR] Connection in use: ('127.0.0.1', 8000)
+[2024-04-15 19:48:47 +0900] [4765] [ERROR] Retrying in 1 second.
+[2024-04-15 19:48:48 +0900] [4765] [ERROR] Connection in use: ('127.0.0.1', 8000)
+[2024-04-15 19:48:48 +0900] [4765] [ERROR] Retrying in 1 second.
+[2024-04-15 19:48:49 +0900] [4765] [ERROR] Connection in use: ('127.0.0.1', 8000)
+[2024-04-15 19:48:49 +0900] [4765] [ERROR] Retrying in 1 second.
+[2024-04-15 19:48:50 +0900] [4765] [ERROR] Can't connect to ('127.0.0.1', 8000)
+[2024-04-15 19:53:16 +0900] [4762] [ERROR] Worker (pid:4763) was sent SIGHUP!
+[2024-04-15 19:53:16 +0900] [4762] [ERROR] Worker (pid:4764) was sent SIGHUP!
+[2024-04-15 19:53:16 +0900] [4771] [INFO] Booting worker with pid: 4771
+[2024-04-15 19:53:16 +0900] [4772] [INFO] Booting worker with pid: 4772
+[2024-04-15 19:53:16 +0900] [4762] [INFO] Handling signal: hup
+[2024-04-15 19:53:16 +0900] [4762] [INFO] Hang up: Master
+[2024-04-15 19:53:16 +0900] [4773] [INFO] Booting worker with pid: 4773
+[2024-04-15 19:53:16 +0900] [4774] [INFO] Booting worker with pid: 4774
+[2024-04-15 19:53:17 +0900] [4771] [INFO] Worker exiting (pid: 4771)
+[2024-04-15 19:53:17 +0900] [4772] [INFO] Worker exiting (pid: 4772)
+[2024-04-15 19:53:17 +0900] [4762] [ERROR] Worker (pid:4772) was sent SIGTERM!
+[2024-04-15 19:55:29 +0900] [5111] [INFO] Starting gunicorn 21.2.0
+[2024-04-15 19:55:29 +0900] [5111] [ERROR] Connection in use: ('127.0.0.1', 8000)
+[2024-04-15 19:55:29 +0900] [5111] [ERROR] Retrying in 1 second.
+[2024-04-15 19:55:30 +0900] [5111] [ERROR] Connection in use: ('127.0.0.1', 8000)
+[2024-04-15 19:55:30 +0900] [5111] [ERROR] Retrying in 1 second.
+[2024-04-15 19:55:31 +0900] [5111] [ERROR] Connection in use: ('127.0.0.1', 8000)
+[2024-04-15 19:55:31 +0900] [5111] [ERROR] Retrying in 1 second.
+[2024-04-15 19:55:32 +0900] [5111] [ERROR] Connection in use: ('127.0.0.1', 8000)
+[2024-04-15 19:55:32 +0900] [5111] [ERROR] Retrying in 1 second.
+[2024-04-15 19:55:33 +0900] [5111] [ERROR] Connection in use: ('127.0.0.1', 8000)
+[2024-04-15 19:55:33 +0900] [5111] [ERROR] Retrying in 1 second.
+[2024-04-15 19:55:34 +0900] [5111] [ERROR] Can't connect to ('127.0.0.1', 8000)
