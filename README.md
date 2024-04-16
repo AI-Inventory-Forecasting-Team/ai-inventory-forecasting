@@ -490,7 +490,7 @@ gantt
 	        <img src="picture/delete_play.gif" width="100%" >
             </td>
             <td>
-                <img src="picture/post_play.gif" width="100%">
+                <img src="picture/upload_play.gif" width="100%">
             </td>
         </tr>
         <tr>
