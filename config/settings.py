@@ -90,11 +90,11 @@ CORS_ALLOW_HEADERS = [
         "x-requested-with",
 ]
 
-# CORS_ALLOW_ALL_ORIGINS = True  # 모든 출처에서 오는 요청을 허용하려면 True로 설정
+CORS_ALLOW_ALL_ORIGINS = True  # 모든 출처에서 오는 요청을 허용하려면 True로 설정
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS = [
-    "http://서버 ip",
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://서버 ip",
+# ]
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
