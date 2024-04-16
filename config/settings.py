@@ -50,12 +50,14 @@ INSTALLED_APPS = [
     "posts",
     "comments",
 ]
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -88,7 +90,6 @@ CORS_ALLOW_HEADERS = [
         "x-requested-with",
 ]
 
-# cors_allow_credentials = True
 CORS_ALLOW_CREDENTIALS = True
 # CORS_ALLOW_ALL_ORIGINS = True  # 모든 출처에서 오는 요청을 허용하려면 True로 설정
 CORS_ALLOWED_ORIGINS = [
