@@ -151,14 +151,23 @@
 
 - comments 앱
 
-| app:comments | HTTP Method | 설명                     | 로그인 권한 필요 | 작성자 권한 필요 |
-|--------------|-------------|---------------------------|------------------|-------------------|
-| comments     | GET         | /api/posts/{post_id}/comments/ | 게시물 댓글 조회 |                |   |
-| comments     | GET         | /api/posts/{post_id}/comments/{id}/ | 댓글 상세 조회 |              |   |
-| comments     | PUT         | /api/posts/{post_id}/comments/{id}/ | 댓글 수정 | ✅            | ✅ |
-| comments     | PATCH       | /api/posts/{post_id}/comments/{id}/ | 댓글 부분 수정 | ✅         | ✅ |
-| comments     | DELETE      | /api/posts/{post_id}/comments/{id}/ | 댓글 삭제 | ✅            | ✅ |
-| comments     | POST        | /api/posts/{post_id}/comments/create/ | 댓글 작성 | ✅           |   |
+| URL Pattern                                           | HTTP Method | 설명                    | 로그인 권한 필요 | 작성자 권한 필요 |
+|-------------------------------------------------------|-------------|-------------------------|:----------------:|:----------------:|
+| /api/posts/{post_id}/comments/                        | GET         | 게시물 댓글 조회        |                  |                  |
+| /api/posts/{post_id}/comments/{id}/                   | GET         | 댓글 상세 조회          |                  |                  |
+| /api/posts/{post_id}/comments/{id}/update/            | PUT         | 댓글 수정               | ✅               | ✅               |
+| /api/posts/{post_id}/comments/{id}/update/            | PATCH       | 댓글 부분 수정          | ✅               | ✅               |
+| /api/posts/{post_id}/comments/{id}/delete/            | DELETE      | 댓글 삭제               | ✅               | ✅               |
+| /api/posts/{post_id}/comments/create/                 | POST        | 댓글 작성               | ✅               |                  |
+| /api/posts/{post_id}/comments/replies/{id}/           | GET         | 대댓글 상세 조회        |                  |                  |
+| /api/posts/{post_id}/comments/replies/{id}/update/    | PUT         | 대댓글 전체 수정        | ✅               | ✅               |
+| /api/posts/{post_id}/comments/replies/{id}/update/    | PATCH       | 대댓글 부분 수정        | ✅               | ✅               |
+| /api/posts/{post_id}/comments/replies/{id}/delete/    | DELETE      | 대댓글 삭제             | ✅               | ✅               |
+| /api/posts/{post_id}/comments/{comment_id}/replies/   | GET         | 대댓글 리스트 조회      |                  |                  |
+| /api/posts/{post_id}/comments/{comment_id}/replies/{reply_id}/ | GET | 대댓글 상세 조회      |                  |                  |
+| /api/posts/{post_id}/comments/{comment_id}/replies/create/ | POST | 대댓글 작성            | ✅               |                  |
+
+
 
 - schema 앱
   
@@ -198,23 +207,23 @@
 
 ```mermaid
 classDiagram
-  class Profile {
+  class 프로필 {
     +GET /api/accounts/profile/
     +DELETE /api/accounts/profile/delete/
     +PUT /api/accounts/profile/update/
     +PATCH /api/accounts/profile/update/
   }
 
-  class Signup {
+  class 회원가입 {
     +POST /api/accounts/signup/
   }
 
-  class Token {
+  class 토큰 {
     +POST /api/accounts/token/
     +POST /api/accounts/token/refresh/
   }
 
-  class Post {
+  class 게시물 {
     +GET /api/posts/id/
     +DELETE /api/posts/id/delete/
     +POST /api/posts/id/like/
@@ -225,36 +234,47 @@ classDiagram
     +GET /api/posts/list/
   }
 
-  class Bookmark {
+  class 북마크 {
     +GET /api/posts/bookmarks/
     +DELETE /api/posts/bookmarks/id/
     +POST /api/posts/bookmarks/create/
   }
 
-  class Category {
+  class 카테고리 {
     +GET /api/posts/categories/
   }
 
-  class Comment {
+  class 댓글 {
     +GET /api/posts/post_id/comments/
     +GET /api/posts/post_id/comments/id/
-    +PUT /api/posts/post_id/comments/id/
-    +PATCH /api/posts/post_id/comments/id/
-    +DELETE /api/posts/post_id/comments/id/
+    +PUT /api/posts/post_id/comments/id/update/
+    +PATCH /api/posts/post_id/comments/id/update/
+    +DELETE /api/posts/post_id/comments/id/delete/
     +POST /api/posts/post_id/comments/create/
   }
 
-  class Schema {
+  class 대댓글 {
+    +GET /api/posts/post_id/comments/comment_id/replies/
+    +GET /api/posts/post_id/comments/comment_id/replies/reply_id/
+    +PUT /api/posts/post_id/comments/replies/id/update/
+    +PATCH /api/posts/post_id/comments/replies/id/update/
+    +DELETE /api/posts/post_id/comments/replies/id/delete/
+    +POST /api/posts/post_id/comments/comment_id/replies/create/
+  }
+
+  class 스키마 {
     +GET /api/schema/
   }
 
-  Profile --> Signup : Uses
-  Profile --> Token : Uses
-  Post --> Comment : Contains
-  Post --> Bookmark : Contains
-  Post --> Category : Categorized by
-  Profile --> Post : Creates/Interacts with
-  Token --> Profile : Authenticates
+  프로필 --> 회원가입 : 사용
+  프로필 --> 토큰 : 사용
+  게시물 --> 댓글 : 포함
+  게시물 --> 대댓글 : 포함
+  게시물 --> 북마크 : 포함
+  게시물 --> 카테고리 : 분류
+  프로필 --> 게시물 : 생성/상호작용
+  토큰 --> 프로필 : 인증
+  댓글 --> 대댓글 : 포함
 
 
 ```
