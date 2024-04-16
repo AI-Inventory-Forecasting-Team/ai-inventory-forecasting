@@ -443,70 +443,70 @@ gantt
 
 ### 5.2 화면 설계
 
-<table>
+ <table>
     <tbody>
-        <tr>
-            <td>메인</td>
-            <td>로그인</td>
-        </tr>
-        <tr>
-            <td>
-		<img src="picture/main.gif" width="100%" >
-            </td>
-            <td>
-                <img src="picture/login_play.gif" width="100%">
-            </td>
-        </tr>
-        <tr>
-            <td>회원가입</td>
-            <td>정보수정</td>
-        </tr>
-        <tr>
-            <td>
-                <img src="picture/resignup_play.gif" width="100%" >
-            </td>
-            <td>
-                <img src="picture/profile_play.gif" width="100%" >
-            </td>
-        </tr>
-        <tr>
-            <td>검색</td>
-            <td>챗봇</td>
-        </tr>
-        <tr>
-            <td>
-                <img src="picture/search.gif" width="100%" >
-            </td>
-            <td>
-                <img src="picture/chatbot_play.gif" width="100%" >
-            </td>
-        </tr>
-        <tr>
-            <td>선택삭제</td>
-            <td>글쓰기</td>
-        </tr>
-        <tr>
-            <td>
-	        <img src="picture/delete_play.gif" width="100%" >
-            </td>
-            <td>
-                <img src="picture/upload_play.gif" width="100%">
-            </td>
-        </tr>
-        <tr>
-            <td>글 상세보기</td>
-            <td>댓글</td>
-        </tr>
-        <tr>
-            <td>
-                <img src="picture/detail_play.gif" width="100%" >
-            </td>
-            <td>
-                <img src="picture/comment_play.gif" width="100%" >
-            </td>
-        </tr>
+      <tr>
+        <td>메인</td>
+        <td>로그인</td>
+      </tr>
+      <tr>
+        <td>
+          <img src="picture/main.gif" width="100%">
+        </td>
+        <td>
+          <img src="picture/login_play.gif" width="100%">
+        </td>
+      </tr>
+      <tr>
+        <td>회원가입</td>
+        <td>정보수정</td>
+      </tr>
+      <tr>
+        <td>
+          <img src="picture/resignup_play.gif" width="100%">
+        </td>
+        <td>
+          <img src="picture/profile_play.gif" width="100%">
+        </td>
+      </tr>
+      <tr>
+        <td>검색</td>
+        <td>챗봇</td>
+      </tr>
+      <tr>
+        <td class="image-container">
+          <img src="picture/search.gif" width="100%">
+        </td>
+        <td class="image-container">
+          <img src="picture/chatbot_play.gif" width="100%">
+        </td>
+      </tr>
+      <tr>
+        <td>선택삭제</td>
+        <td>글쓰기</td>
+      </tr>
+      <tr>
+        <td>
+          <img src="picture/delete_play.gif" width="100%">
+        </td>
+        <td>
+          <img src="picture/upload_play.gif" width="100%">
+        </td>
+      </tr>
+      <tr>
+        <td>글 상세보기</td>
+        <td>댓글</td>
+      </tr>
+      <tr>
+        <td>
+          <img src="picture/detail_play.gif" width="100%">
+        </td>
+        <td>
+          <img src="picture/comment_play.gif" width="100%">
+        </td>
+      </tr>
     </tbody>
-</table>
+  </table>
 
 <div align="right">
 
