@@ -1,4 +1,28 @@
-# 인공지능 물류 예측 모델 서비스 
+# 물류 기술 블로그 및 재고 예측 서비스
+
+## 목차
+  * [1. 목표와 기능](#1-목표와-기능)
+    + [1.1 목표](#11-목표)
+    + [1.2 기능](#12-기능)
+    + [1.3 팀 구성](#13-팀-구성)
+  * [2. 개발 환경 및 배포 URL](#2-개발-환경-및-배포-url)
+    + [2.1 개발 기술](#21-개발-기술)
+    + [2.2 개발 환경](#22-개발-환경)
+    + [2.3 배포 URL](#23-배포-url)
+    + [2.4 URL 구조](#24-url-구조)
+  * [3. 요구사항 명세와 기능 명세](#3-요구사항-명세와-기능-명세)
+    + [3.1 요구사항 명세](#31-요구사항-명세)
+    + [3.2 기능 명세](#32-기능-명세)
+  * [4. 프로젝트 구조와 개발 일정](#4-프로젝트-구조와-개발-일정)
+    + [4.1 프로젝트 구조](#41-프로젝트-구조)
+    + [4.2 개발 일정](#42-개발-일정)
+  * [5. 와이어프레임 및 화면 설계](#5-와이어프레임-및-화면-설계)
+    + [5.1 와이어프레임](#51-와이어프레임)
+    + [5.2 화면 설계](#52-화면-설계)
+  * [6. 데이터베이스 모델링](#6-데이터베이스-모델링)
+  * [7. Architecture](#7-architecture)
+  * [8. 트러블슈팅](#8-트러블슈팅)
+  * [9. 개발하며 느낀점](#9-개발하며-느낀점)
 
 ## 1. 목표와 기능
 
@@ -49,55 +73,101 @@
 	</tr>
 </table>
 
+<div align="right">
+
+[목차](#목차)
+
+</div>
+
 ## 2. 개발 환경 및 배포 URL
-### 2.1 개발 환경
-- Web Framework
-  - Django 4.2.11 (Python 3.11.7)
-- 서비스 배포 환경
-  - Amazon Lightsail
-### 2.2 배포 URL
+### 2.1 개발 기술
+
+**[기술 - FE]**
+</br>
+</br>
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white">
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white">
+<img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white">
+ <img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white">
+</br>
+</br>
+**[기술 - BE]**
+</br>
+</br>
+<img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">
+<img src="https://img.shields.io/badge/django-092E20?style=for-the-badge&logo=django&logoColor=white">
+</br>
+</br>
+**[기술 - DB]**
+</br>
+</br>
+<img src="https://img.shields.io/badge/sqlite-003B57?style=for-the-badge&logo=sqlite&logoColor=white">
+</br>
+</br>
+
+### 2.2 개발 환경
+<img src="https://img.shields.io/badge/Lightsail-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white"> <img src="https://img.shields.io/badge/nginx-009639?style=for-the-badge&logo=nginx&logoColor=white"> <img src="https://img.shields.io/badge/gunicorn-499848?style=for-the-badge&logo=gunicorn&logoColor=white"> <img src="https://img.shields.io/badge/visualstudio-007ACC?style=for-the-badge&logo=visualstudio&logoColor=white"> <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/discord-5865F2?style=for-the-badge&logo=discord&logoColor=white">
+
+### 2.3 배포 URL
 - URL
+  - http://3.38.149.8/
 - 테스트용 계정
   ```
   id : test
   pw : test1234!
   ```
 
-### 2.3 URL 구조(마이크로식)
+### 2.4 URL 구조
 
 - accounts 앱
   
-|app:accounts|HTTP Method|설명|로그인 권한 필요|작성자 권한 필요|
-|--------------|-------------|--------------|------------------|------------------|
-| profile/     | GET         | 프로필 조회   | ✅               | ✅               |
-| signup/      | POST        | 회원가입      |                  |                  |
-| token/       | POST        | 로그인 토큰 발급 |                |                  |
-| token/refresh/ | POST      | 만료 토큰 재발급 |                |                  |
+| app:accounts      | HTTP Method | 설명           | 로그인 권한 필요 | 작성자 권한 필요 |
+|-------------------|-------------|----------------|------------------|------------------|
+| profile/          | GET         | 프로필 조회     | ✅               | ✅               |
+| profile/delete/   | DELETE      | 프로필 삭제     | ✅               | ✅               |
+| profile/update/   | PUT         | 프로필 전체 수정 | ✅               | ✅               |
+| profile/update/   | PATCH       | 프로필 부분 수정 | ✅               | ✅               |
+| signup/           | POST        | 회원가입        |                  |                  |
+| token/            | POST        | 로그인 토큰 발급 |                  |                  |
+| token/refresh/    | POST        | 만료 토큰 재발급 |                  |                  |
 
 
 - posts 앱
   
-| app:posts | HTTP Method | 설명               | 로그인 권한 필요 | 작성자 권한 필요 |
-|------------|-------------|---------------------|------------------|-------------------|
-| posts      | GET         | /api/posts/{id}/    | 게시물 상세 조회 |                    |
-| posts      | DELETE      | /api/posts/{id}/delete/ | 게시물 삭제 | ✅              | ✅ |
-| posts      | POST        | /api/posts/{id}/like/ | 게시물 좋아요  | ✅              |   |
-| posts      | DELETE      | /api/posts/{id}/unlike/ | 게시물 좋아요 취소 | ✅          |   |
-| posts      | PUT         | /api/posts/{id}/update/ | 게시물 수정   | ✅              | ✅ |
-| posts      | PATCH       | /api/posts/{id}/update/ | 게시물 부분 수정 | ✅           | ✅ |
-| posts      | POST        | /api/posts/create/ | 게시물 작성      | ✅               |   |
-| posts      | GET         | /api/posts/list/   | 게시판 리스트 조회 |                  |   |
+| app:posts          | HTTP Method | 설명               | 로그인 권한 필요 | 작성자 권한 필요 |
+|--------------------|-------------|---------------------|------------------|------------------|
+| {id}/              | GET         | 게시물 상세 조회    |                  |                  |
+| {id}/delete/       | DELETE      | 게시물 삭제         | ✅               | ✅               |
+| {id}/like/         | POST        | 게시물 좋아요       | ✅               |                  |
+| {id}/unlike/       | DELETE      | 게시물 좋아요 취소   | ✅               |                  |
+| {id}/update/       | PUT         | 게시물 수정         | ✅               | ✅               |
+| {id}/update/       | PATCH       | 게시물 부분 수정    | ✅               | ✅               |
+| create/            | POST        | 게시물 작성         | ✅               |                  |
+| list/              | GET         | 게시판 리스트 조회  |                  |                  |
+| bookmarks/         | GET         | 북마크 조회          | ✅               |                  |
+| bookmarks/{id}/    | DELETE      | 북마크 삭제          | ✅               |                  |
+| bookmarks/create/  | POST        | 북마크 생성          | ✅               |                  |
+| categories/        | GET         | 카테고리 조회        |                  |                  |
 
 - comments 앱
 
-| app:comments | HTTP Method | 설명                     | 로그인 권한 필요 | 작성자 권한 필요 |
-|--------------|-------------|---------------------------|------------------|-------------------|
-| comments     | GET         | /api/posts/{post_id}/comments/ | 게시물 댓글 조회 |                |   |
-| comments     | GET         | /api/posts/{post_id}/comments/{id}/ | 댓글 상세 조회 |              |   |
-| comments     | PUT         | /api/posts/{post_id}/comments/{id}/ | 댓글 수정 | ✅            | ✅ |
-| comments     | PATCH       | /api/posts/{post_id}/comments/{id}/ | 댓글 부분 수정 | ✅         | ✅ |
-| comments     | DELETE      | /api/posts/{post_id}/comments/{id}/ | 댓글 삭제 | ✅            | ✅ |
-| comments     | POST        | /api/posts/{post_id}/comments/create/ | 댓글 작성 | ✅           |   |
+| URL Pattern                                           | HTTP Method | 설명                    | 로그인 권한 필요 | 작성자 권한 필요 |
+|-------------------------------------------------------|-------------|-------------------------|:----------------:|:----------------:|
+| /api/posts/{post_id}/comments/                        | GET         | 게시물 댓글 조회        |                  |                  |
+| /api/posts/{post_id}/comments/{id}/                   | GET         | 댓글 상세 조회          |                  |                  |
+| /api/posts/{post_id}/comments/{id}/update/            | PUT         | 댓글 수정               | ✅               | ✅               |
+| /api/posts/{post_id}/comments/{id}/update/            | PATCH       | 댓글 부분 수정          | ✅               | ✅               |
+| /api/posts/{post_id}/comments/{id}/delete/            | DELETE      | 댓글 삭제               | ✅               | ✅               |
+| /api/posts/{post_id}/comments/create/                 | POST        | 댓글 작성               | ✅               |                  |
+| /api/posts/{post_id}/comments/replies/{id}/           | GET         | 대댓글 상세 조회        |                  |                  |
+| /api/posts/{post_id}/comments/replies/{id}/update/    | PUT         | 대댓글 전체 수정        | ✅               | ✅               |
+| /api/posts/{post_id}/comments/replies/{id}/update/    | PATCH       | 대댓글 부분 수정        | ✅               | ✅               |
+| /api/posts/{post_id}/comments/replies/{id}/delete/    | DELETE      | 대댓글 삭제             | ✅               | ✅               |
+| /api/posts/{post_id}/comments/{comment_id}/replies/   | GET         | 대댓글 리스트 조회      |                  |                  |
+| /api/posts/{post_id}/comments/{comment_id}/replies/{reply_id}/ | GET | 대댓글 상세 조회      |                  |                  |
+| /api/posts/{post_id}/comments/{comment_id}/replies/create/ | POST | 대댓글 작성            | ✅               |                  |
+
+
 
 - schema 앱
   
@@ -105,6 +175,11 @@
 |:-|:-|:-|:-:|:-:|
 |schema/|GET|API 스키마 조회|||
 
+<div align="right">
+
+[목차](#목차)
+
+</div>
 
 ## 3. 요구사항 명세와 기능 명세
 ### 3.1 요구사항 명세
@@ -132,15 +207,23 @@
 
 ```mermaid
 classDiagram
-  class Profile {
+  class 프로필 {
     +GET /api/accounts/profile/
+    +DELETE /api/accounts/profile/delete/
+    +PUT /api/accounts/profile/update/
+    +PATCH /api/accounts/profile/update/
   }
 
-  class Signup {
+  class 회원가입 {
     +POST /api/accounts/signup/
   }
 
-  class Post {
+  class 토큰 {
+    +POST /api/accounts/token/
+    +POST /api/accounts/token/refresh/
+  }
+
+  class 게시물 {
     +GET /api/posts/id/
     +DELETE /api/posts/id/delete/
     +POST /api/posts/id/like/
@@ -151,43 +234,56 @@ classDiagram
     +GET /api/posts/list/
   }
 
-  class Comment {
-    +GET /api/posts/post_id/comments/
-    +GET /api/posts/post_id/comments/id/
-    +PUT /api/posts/post_id/comments/id/
-    +PATCH /api/posts/post_id/comments/id/
-    +DELETE /api/posts/post_id/comments/id/
-    +POST /api/posts/post_id/comments/create/
-  }
-
-  class Bookmark {
+  class 북마크 {
     +GET /api/posts/bookmarks/
     +DELETE /api/posts/bookmarks/id/
     +POST /api/posts/bookmarks/create/
   }
 
-  class Category {
+  class 카테고리 {
     +GET /api/posts/categories/
   }
 
-  class Schema {
+  class 댓글 {
+    +GET /api/posts/post_id/comments/
+    +GET /api/posts/post_id/comments/id/
+    +PUT /api/posts/post_id/comments/id/update/
+    +PATCH /api/posts/post_id/comments/id/update/
+    +DELETE /api/posts/post_id/comments/id/delete/
+    +POST /api/posts/post_id/comments/create/
+  }
+
+  class 대댓글 {
+    +GET /api/posts/post_id/comments/comment_id/replies/
+    +GET /api/posts/post_id/comments/comment_id/replies/reply_id/
+    +PUT /api/posts/post_id/comments/replies/id/update/
+    +PATCH /api/posts/post_id/comments/replies/id/update/
+    +DELETE /api/posts/post_id/comments/replies/id/delete/
+    +POST /api/posts/post_id/comments/comment_id/replies/create/
+  }
+
+  class 스키마 {
     +GET /api/schema/
   }
 
-  class Token {
-    +POST /api/token/
-    +POST /api/token/refresh/
-  }
-
-  Profile --> Signup : Uses
-  Post --> Comment : Contains
-  Post --> Bookmark : Contains
-  Post --> Category : Categorized by
-  Profile --> Post : Creates/Interacts with
-  Token --> Profile : Authenticates
+  프로필 --> 회원가입 : 사용
+  프로필 --> 토큰 : 사용
+  게시물 --> 댓글 : 포함
+  게시물 --> 대댓글 : 포함
+  게시물 --> 북마크 : 포함
+  게시물 --> 카테고리 : 분류
+  프로필 --> 게시물 : 생성/상호작용
+  토큰 --> 프로필 : 인증
+  댓글 --> 대댓글 : 포함
 
 
 ```
+
+<div align="right">
+
+[목차](#목차)
+
+</div>
 
 ## 4. 프로젝트 구조와 개발 일정
 ### 4.1 프로젝트 구조
@@ -248,12 +344,10 @@ classDiagram
  ┣ 📜db.sqlite3
  ┣ 📜manage.py
  ┣ 📜pyproject.toml
- ┣ 📜README.md
- ┗ 📜requirements.txt
+ ┣ 📜REA및 UI
 ```
 
-### 4.1 개발 일정(WBS)
-* 아래 일정표는 머메이드로 작성했습니다.
+## 4.2 개발 일정
 ```mermaid
 gantt
     dateFormat  YYYY-MM-DD
@@ -267,6 +361,9 @@ gantt
     section 개발 환경
     개발 환경 세팅 :set1, 2024-03-29, 2d
 
+    section DRF 학습
+    DRF 학습::des1, 2024-04-02, 2d
+
     section 앱 개발
     accounts 앱 구현 :acc1, 2024-04-01, 7d
     posts 앱 구현 :pos1, 2024-04-01, 7d
@@ -277,6 +374,11 @@ gantt
 
     section 추가 기능
     추가 기능 : 2024-04-10, 4d
+
+    section 챗봇 개발
+    챗봇 기획 및 설계 :chat1, 2024-04-05, 2d
+    챗봇 개발 :chat2, 2024-04-07, 8d
+    
 
     section 테스트
     테스트 : 2024-04-05, 1d
@@ -294,10 +396,13 @@ gantt
     README : doc1, 2024-04-16, 1d
 ```
 
+<div align="right">
 
+[목차](#목차)
 
-## 5. 와이어프레임 / UI / BM
+</div>
 
+## 5. 와이어프레임 및 화면 설계
 ### 5.1 와이어프레임
 <table>
     <tbody>
@@ -319,7 +424,7 @@ gantt
         </tr>
         <tr>
             <td>
-                <img src="samples/login_form.png" width="100%">
+                <img src="samples/login_form.png" width="90%">
             </td>
             <td>
                 <img src="samples/about.png" width="100%">
@@ -327,22 +432,17 @@ gantt
         </tr>
         <tr>
             <td>서비스 페이지</td>
-            <td>수정 예정</td>
         </tr>
         <tr>
             <td>
                 <img src="samples/services.png" width="100%">
-            </td>
-            <td>
-                <img src="#" width="100%">
             </td>
         </tr>
     </tbody>
 </table>
 
 ### 5.2 화면 설계
-- 화면은 gif파일로 업로드해주세요.
- 
+
 <table>
     <tbody>
         <tr>
@@ -351,10 +451,10 @@ gantt
         </tr>
         <tr>
             <td>
-		<img src="ui1.png" width="100%">
+		<img src="picture/main.gif" width="100%" >
             </td>
             <td>
-                <img src="ui2.png" width="100%">
+                <img src="picture/relogin_play.gif" width="100%">
             </td>
         </tr>
         <tr>
@@ -363,22 +463,22 @@ gantt
         </tr>
         <tr>
             <td>
-                <img src="ui3.png" width="100%">
+                <img src="picture/resignup_play.gif" width="100%" >
             </td>
             <td>
-                <img src="ui3.png" width="100%">
+                <img src="picture/profile_play.gif" width="100%" >
             </td>
         </tr>
         <tr>
             <td>검색</td>
-            <td>번역</td>
+            <td>챗봇</td>
         </tr>
         <tr>
             <td>
-                <img src="ui3.png" width="100%">
+                <img src="picture/search.gif" width="100%" >
             </td>
             <td>
-                <img src="ui3.png" width="100%">
+                <img src="picture/chatbot_play.gif" width="100%" >
             </td>
         </tr>
         <tr>
@@ -387,10 +487,10 @@ gantt
         </tr>
         <tr>
             <td>
-	        <img src="ui3.png" width="100%">
+	        <img src="picture/delete_play.gif" width="100%" >
             </td>
             <td>
-                <img src="ui3.png" width="100%">
+                <img src="picture/reupload_play.gif" width="100%">
             </td>
         </tr>
         <tr>
@@ -399,32 +499,39 @@ gantt
         </tr>
         <tr>
             <td>
-                <img src="ui3.png" width="100%">
+                <img src="picture/detail_play.gif" width="100%" >
             </td>
             <td>
-                <img src="ui3.png" width="100%">
+                <img src="picture/comment_play.gif" width="100%" >
             </td>
         </tr>
     </tbody>
 </table>
 
+<div align="right">
 
-## 6. 데이터베이스 모델링(ERD)
-![Untitled (4)](https://github.com/AI-Inventory-Forecasting-Team/ai-inventory-forecasting/assets/113663639/b5a5464b-e7b3-4495-9378-b2595c94a54a)
+[목차](#목차)
+
+</div>
+
+## 6. 데이터베이스 모델링
+![Untitled (6)](https://github.com/AI-Inventory-Forecasting-Team/ai-inventory-forecasting/assets/113663639/c90d4f37-70b7-43aa-93c2-4e134bf3e9ea)
 
 
+<div align="right">
+
+[목차](#목차)
+
+</div>
 
 ## 7. Architecture
 
-* 아래 Architecture 설계도는 ChatGPT에게 아키텍처를 설명하고 mermaid로 그려달라 요청한 것입니다.
 ```mermaid
+
 graph TD;
     CI[GitHub CI/CD] -->|Deploys| LS[AWS Lightsail];
     A[Django Application] -->|Uses| DRF[Django REST Framework];
-    A -->|Real-time communication| C[Django Channels];
-    C -->|Messaging backend| R[Redis];
-    A -->|Connects to| DB[postgresql];
-    A -->|Static & Media Files| S3[AWS S3];
+    A -->|Connects to| DB[sqlite3];
     FE[Frontend] -->|Deployed on| LS;
     LS -->|Hosts| A;
     LS -->|Hosts| FE;
@@ -433,17 +540,208 @@ graph TD;
     classDef aws fill:#ff9,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5;
     classDef ci fill:#9cf,stroke:#33f,stroke-width:2px;
     
-    class A,DRF,C,DB framework;
+    class A,DRF framework;
     class LS,S3 aws;
     class CI ci;
-
 ```
 
 
+<div align="right">
+
+[목차](#목차)
+
+</div>
+
+## 8. 트러블슈팅
+### 8.1. common앱 models.py 참조 오류
+#### 8.1.1. 문제 원인
+```python
+ImportError: cannot import name 'User' from partially initialized module 'common.models'
+(most likely due to a circular import) 
+```
+
+- 두 모듈이 서로를 임포트하는 경우, 파이썬은 모듈을 정상적으로 로드할 수 없어 발생하는 문제입니다.
+#### 8.1.2 해결 방법
+```python
+from django.apps import apps
+User = apps.get_model('app_name', 'User')
+```
+- get_model 함수를 사용하여, 모델 임포트를 하지 않고 모델 클래스에 접근할 수 있습니다.
+
+### 8.2. 로컬 저장소 Git 브랜치 존재 오류
+#### 8.2.1. 문제 원인
+```shell
+error: src refspec feat/common does not match any
+error: failed to push some refs to '
+https://github.com/AI-Inventory-Forecasting-Team/ai-inventory-forecasting.git
+```
+
+- 지정한 브랜치가 로컬 저장소에 존재하지 않아 발생하는 문제입니다. 
+
+#### 8.2.2. 해결 방법
+```shell
+# 현재 브랜치 목록 확인
+git branch
+
+# 브랜치 생성 및 체크 아웃
+git checkout -b feat/common
+
+# 브랜치 푸시
+git push origin feat/common
+```
+
+- 브랜치가 존재하지 않으면 생성 후 푸시합니다.
+
+### 8.3. 마이그레이션 의존성 오류
+#### 8.3.1. 문제 원인
+```python
+django.db.migrations.exceptions.InconsistentMigrationHistory: Migration admin.0001_initial is applied before its dependency accounts.0001_initial on database 'default'.
+```
+
+- admin.0001_initial 마이그레이션이 그것의 의존성인 accounts.0001_initial 마이그레이션보다 먼저 적용되었기 때문에 발생한 오류입니다.
+
+#### 8.3.2. 해결 방법
+
+- db.sqlite3와 migrations 폴더 내부의 000*.py를 삭제 후 다시 마이그레이션 하여 해결하였습니다. 개발 초기 단계에서만 권장되며, 기존 데이터가 유실될 수 있습니다.
+
+### 8.4. 데이터베이스 테이블 존재 오류
+#### 8.4.1. 문제 원인
+```python
+OperationalError at /accounts/join/
+no such table: accounts_customuser
+```
+
+- 데이터베이스에 해당 테이블이 존재하지 않아 발생했습니다.
+
+#### 8.4.2. 해결 방법
+```python
+python manage.py makemigrations
+python manage.py migrate
+```
+
+- 마이그레이션을 진행하여 해결하였습니다.
+
+### 8.5. 서버 인증 실패(401)
+#### 8.5.1. 문제 원인
+```python
+index.html:1426
+
+GET http://localhost:8000/posts/ 401 (Unauthorized)
+(익명) @ index.html:1426
+index.html:1448 Error fetching user data: TypeError: Cannot set properties of null (setting 'textContent')
+at index.html:1435:53
+```
+
+- access 토큰이 유효하지 않고, 선택한 DOM 요소가 null이기에 발생하였습니다.
+
+#### 8.5.2. 해결 방법
+```javascript
+if (isAuthenticated) {
+// 토큰 갱신
+  fetch('http://127.0.0.1:8000/api/token/refresh/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      },
+    body: JSON.stringify({
+    refresh: localStorage.getItem('refresh'),
+      }),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      const { access: newToken } = data;
+      localStorage.getItem('access', newToken);
+```
+- access 토큰을 받는 로직을 html의 스크립트 태그에서 수정하여 해결하였습니다.
+
+### 8.6. UserDetailView pk 인자 관련 오류
+#### 8.6.1. 문제 원인
+```python
+AssertionError: Expected view UserDetailView to be called with a URL keyword argument named "pk". Fix your URL conf, or set the .lookup_field attribute on the view correctly.
+[04/Apr/2024 10:51:25] "GET /api/accounts/profile/ HTTP/1.1" 500 104165
+```
+
+- "pk"라는 URL 키워드 인자를 받아야 한다는 것을 기대하고 있지만, 실제로는 받지 못해 생기는 오류입니다.
+
+#### 8.6.2. 해결 방법
+```python
+class UserDetailView(generics.RetrieveAPIView):
+    serializer_class = UserSerializer
+
+    def get_object(self):
+        """
+        이 뷰는 항상 로그인한 사용자의 정보를 반환합니다.
+        """
+        return self.request.user
+```
+
+- UserDetailView는 항상 로그인한 사용자의 정보를 반환하도록 get_object 메서드를 오버라이딩하여 해결하였습니다. 
 
 
-## 8. 에러와 에러 해결
 
+<div align="right">
+
+[목차](#목차)
+
+</div>
 
 ## 9. 개발하며 느낀점
+### 👩🏻‍💻 기준하
+#### 팀워크의 중요성
+```
+이번 첫 팀 프로젝트로 아무것도 모르는 상태에서 시작하였고, 중간에 개인사정으로 몇 일 참여하지 못했지만,
+이 경험을 통해 많은 것을 배우고 성장할 수 있었습니다. 프로젝트 초반에는 많은 부분에서 서툴고 불확실함을 느꼈지만,
+팀원들과의 협력을 통해 점점 자신감을 얻게 되었습니다.
 
+프로젝트를 통해 팀워크의 중요성과 각자의 역할이 프로젝트 전체에 미치는 영향을 깊이 이해하게 되었습니다.
+또한, 어려움 속에서도 해결책을 찾는 법, 의사소통의 중요성, 그리고 다양한 배경과 전문성을 가진 사람들과 협업하는
+경험은 앞으로의 학업이나 직업생활에 큰 자산이 될 것 같습니다.
+```
+
+
+### 👩🏻‍💻 김민규
+#### 뜻깊은 협업
+```
+학부생 시절 컴퓨터공학과였음에도 불구하고 코로나로 인하여 개발 협업을 해보지 못했었는데 
+이번 기회에 깃허브를 통하여서 협업하는 방법도 배우고 서로 부족한 부분을 이해하고 도와주게 되므로써 
+협동심을 기르고 나아가 그 경험을 토대로 성장하게 되어서 매우 뜻깊은 시간이었습니다.
+앞으로도 개발 협업을 하게 된다면 이번 파이널 프로젝트가 생각날것같습니다.
+```
+
+
+### 👩🏻‍💻 박주형
+#### 도전의 연속
+```
+이번 프로젝트는 제게 첫 팀장 경험이었으며, 모든 팀원이 개발 경험이 전무한 상태에서 시작했습니다. 막막하고
+어려운 도전이었지만, 매일 아침 커피챗을 통해 진행 상황을 공유하며 함께 학습하고 성장해나갔습니다.
+조금이라도 도움이 되고 싶다는 의지를 갖고 계셔서 마무리가 가능했다고 생각합니다.
+```
+
+#### 지지와 격려
+```
+팀을 리드하는 과정에서 나이가 어리고 경험이 부족함에도 불구하고, 팀원들이 매 순간 올바른 결정을 내릴 수 있도록
+도와주고 제 의견을 적극적으로 수용해준 덕분에 큰 도움을 받았습니다.
+이러한 지지와 격려 덕분에 부족함을 극복하고 성장할 수 있었습니다. 
+```
+
+#### 지식 공유
+```
+팀 프로젝트에서 모든 팀원이 개발 경험이 없는 상황에서, 깃허브 사용법을 개인적으로 공부하고 이를 팀원들과 공유함으로써
+협업 효율성을 크게 향상시켰습니다.
+팀원들의 긍정적인 반응과 감사의 말씀은 이러한 노력이 큰 보람으로 이어졌음을 확인시켜 주었습니다.
+```
+
+### 👩🏻‍💻 한승일
+#### 시작이 반이다
+```
+처음에는 제 실력으로 따라갈 수 있을까 팀원들을 방해할까 봐 걱정이 많았고 때론 포기하고 싶었던 순간도 있었습니다.
+다행히도 좋은 팀장님과 팀원들을 만나서 함께 기본적인 기능이라도 구현해보는 시간을 가질 수 있었던 것이 너무 좋았습니다.
+함께 노력하고 배우며 성장할 수 있는 환경이었기에 유의미한 시간이었습니다.
+```
+
+
+<div align="right">
+
+[목차](#목차)
+
+</div>
