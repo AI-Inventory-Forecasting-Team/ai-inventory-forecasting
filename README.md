@@ -454,7 +454,7 @@ gantt
 		<img src="picture/main.gif" width="100%" >
             </td>
             <td>
-                <img src="picture/login_play.gif" width="100%">
+                <img src="picture/relogin_play.gif" width="100%">
             </td>
         </tr>
         <tr>
@@ -463,10 +463,10 @@ gantt
         </tr>
         <tr>
             <td>
-                <img src="picture/signup_play.gif" width="100%" >
+                <img src="picture/resignup_play.gif" width="100%" >
             </td>
             <td>
-                <img src="picture/profile.gif" width="100%" >
+                <img src="picture/profile_play.gif" width="100%" >
             </td>
         </tr>
         <tr>
@@ -478,7 +478,7 @@ gantt
                 <img src="picture/search.gif" width="100%" >
             </td>
             <td>
-                <img src="picture/chatbot.gif" width="100%" >
+                <img src="picture/chatbot_play.gif" width="100%" >
             </td>
         </tr>
         <tr>
@@ -487,10 +487,10 @@ gantt
         </tr>
         <tr>
             <td>
-	        <img src="picture/delete.gif" width="100%" >
+	        <img src="picture/delete_play.gif" width="100%" >
             </td>
             <td>
-                <img src="picture/post_play.gif" width="100%">
+                <img src="picture/reupload_play.gif" width="100%">
             </td>
         </tr>
         <tr>
@@ -502,7 +502,7 @@ gantt
                 <img src="picture/detail_play.gif" width="100%" >
             </td>
             <td>
-                <img src="picture/comment.gif" width="100%" >
+                <img src="picture/comment_play.gif" width="100%" >
             </td>
         </tr>
     </tbody>
@@ -553,17 +553,130 @@ graph TD;
 </div>
 
 ## 8. 트러블슈팅
-### 8.1 버그 이름
-#### 8.1.1 문제 원인
-```
-코드
+### 8.1. common앱 models.py 참조 오류
+#### 8.1.1. 문제 원인
+```python
+ImportError: cannot import name 'User' from partially initialized module 'common.models'
+(most likely due to a circular import) 
 ```
 
-- 문제 발생.. 
+- 두 모듈이 서로를 임포트하는 경우, 파이썬은 모듈을 정상적으로 로드할 수 없어 발생하는 문제입니다.
 #### 8.1.2 해결 방법
+```python
+from django.apps import apps
+User = apps.get_model('app_name', 'User')
 ```
+- get_model 함수를 사용하여, 모델 임포트를 하지 않고 모델 클래스에 접근할 수 있습니다.
+
+### 8.2. 로컬 저장소 Git 브랜치 존재 오류
+#### 8.2.1. 문제 원인
+```shell
+error: src refspec feat/common does not match any
+error: failed to push some refs to '
+https://github.com/AI-Inventory-Forecasting-Team/ai-inventory-forecasting.git
 ```
-- 이렇게 해서 해결했습니다.
+
+- 지정한 브랜치가 로컬 저장소에 존재하지 않아 발생하는 문제입니다. 
+
+#### 8.2.2. 해결 방법
+```shell
+# 현재 브랜치 목록 확인
+git branch
+
+# 브랜치 생성 및 체크 아웃
+git checkout -b feat/common
+
+# 브랜치 푸시
+git push origin feat/common
+```
+
+- 브랜치가 존재하지 않으면 생성 후 푸시합니다.
+
+### 8.3. 마이그레이션 의존성 오류
+#### 8.3.1. 문제 원인
+```python
+django.db.migrations.exceptions.InconsistentMigrationHistory: Migration admin.0001_initial is applied before its dependency accounts.0001_initial on database 'default'.
+```
+
+- admin.0001_initial 마이그레이션이 그것의 의존성인 accounts.0001_initial 마이그레이션보다 먼저 적용되었기 때문에 발생한 오류입니다.
+
+#### 8.3.2. 해결 방법
+
+- db.sqlite3와 migrations 폴더 내부의 000*.py를 삭제 후 다시 마이그레이션 하여 해결하였습니다. 개발 초기 단계에서만 권장되며, 기존 데이터가 유실될 수 있습니다.
+
+### 8.4. 데이터베이스 테이블 존재 오류
+#### 8.4.1. 문제 원인
+```python
+OperationalError at /accounts/join/
+no such table: accounts_customuser
+```
+
+- 데이터베이스에 해당 테이블이 존재하지 않아 발생했습니다.
+
+#### 8.4.2. 해결 방법
+```python
+python manage.py makemigrations
+python manage.py migrate
+```
+
+- 마이그레이션을 진행하여 해결하였습니다.
+
+### 8.5. 서버 인증 실패(401)
+#### 8.5.1. 문제 원인
+```python
+index.html:1426
+
+GET http://localhost:8000/posts/ 401 (Unauthorized)
+(익명) @ index.html:1426
+index.html:1448 Error fetching user data: TypeError: Cannot set properties of null (setting 'textContent')
+at index.html:1435:53
+```
+
+- access 토큰이 유효하지 않고, 선택한 DOM 요소가 null이기에 발생하였습니다.
+
+#### 8.5.2. 해결 방법
+```javascript
+if (isAuthenticated) {
+// 토큰 갱신
+  fetch('http://127.0.0.1:8000/api/token/refresh/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      },
+    body: JSON.stringify({
+    refresh: localStorage.getItem('refresh'),
+      }),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      const { access: newToken } = data;
+      localStorage.getItem('access', newToken);
+```
+- access 토큰을 받는 로직을 html의 스크립트 태그에서 수정하여 해결하였습니다.
+
+### 8.6. UserDetailView pk 인자 관련 오류
+#### 8.6.1. 문제 원인
+```python
+AssertionError: Expected view UserDetailView to be called with a URL keyword argument named "pk". Fix your URL conf, or set the .lookup_field attribute on the view correctly.
+[04/Apr/2024 10:51:25] "GET /api/accounts/profile/ HTTP/1.1" 500 104165
+```
+
+- "pk"라는 URL 키워드 인자를 받아야 한다는 것을 기대하고 있지만, 실제로는 받지 못해 생기는 오류입니다.
+
+#### 8.6.2. 해결 방법
+```python
+class UserDetailView(generics.RetrieveAPIView):
+    serializer_class = UserSerializer
+
+    def get_object(self):
+        """
+        이 뷰는 항상 로그인한 사용자의 정보를 반환합니다.
+        """
+        return self.request.user
+```
+
+- UserDetailView는 항상 로그인한 사용자의 정보를 반환하도록 get_object 메서드를 오버라이딩하여 해결하였습니다. 
+
 
 
 <div align="right">
@@ -585,32 +698,16 @@ graph TD;
 경험은 앞으로의 학업이나 직업생활에 큰 자산이 될 것 같습니다.
 ```
 
-#### 부제
-```
-
-```
-
-#### 부제
-```
-
-```
-
 
 ### 👩🏻‍💻 김민규
-#### 부제
+#### 뜻깊은 협업
+```
+학부생 시절 컴퓨터공학과였음에도 불구하고 코로나로 인하여 개발 협업을 해보지 못했었는데 
+이번 기회에 깃허브를 통하여서 협업하는 방법도 배우고 서로 부족한 부분을 이해하고 도와주게 되므로써 
+협동심을 기르고 나아가 그 경험을 토대로 성장하게 되어서 매우 뜻깊은 시간이었습니다.
+앞으로도 개발 협업을 하게 된다면 이번 파이널 프로젝트가 생각날것같습니다.
 ```
 
-```
-
-#### 부제
-```
-
-```
-
-#### 부제
-```
-
-```
 
 ### 👩🏻‍💻 박주형
 #### 도전의 연속
@@ -642,15 +739,7 @@ graph TD;
 함께 노력하고 배우며 성장할 수 있는 환경이었기에 유의미한 시간이었습니다.
 ```
 
-#### 부제
-```
 
-```
-
-#### 부제
-```
-
-```
 <div align="right">
 
 [목차](#목차)
