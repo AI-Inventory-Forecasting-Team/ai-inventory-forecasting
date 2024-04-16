@@ -677,7 +677,6 @@ class UserDetailView(generics.RetrieveAPIView):
 
 - UserDetailView는 항상 로그인한 사용자의 정보를 반환하도록 get_object 메서드를 오버라이딩하여 해결하였습니다. 
 
-### 8.7. 
 
 
 <div align="right">
@@ -699,16 +698,6 @@ class UserDetailView(generics.RetrieveAPIView):
 경험은 앞으로의 학업이나 직업생활에 큰 자산이 될 것 같습니다.
 ```
 
-#### 부제
-```
-
-```
-
-#### 부제
-```
-
-```
-
 
 ### 👩🏻‍💻 김민규
 #### 뜻깊은 협업
@@ -719,15 +708,6 @@ class UserDetailView(generics.RetrieveAPIView):
 앞으로도 개발 협업을 하게 된다면 이번 파이널 프로젝트가 생각날것같습니다.
 ```
 
-#### 부제
-```
-
-```
-
-#### 부제
-```
-
-```
 
 ### 👩🏻‍💻 박주형
 #### 도전의 연속
