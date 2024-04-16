@@ -451,14 +451,14 @@ gantt
         </tr>
         <tr>
             <td>검색</td>
-            <td>번역</td>
+            <td>챗봇</td>
         </tr>
         <tr>
             <td>
                 <img src="picture/search.gif" width="100%" >
             </td>
             <td>
-                <img src="ui3.png" width="100%">
+                <img src="picture/chatbot.gif" width="100%" >
             </td>
         </tr>
         <tr>
