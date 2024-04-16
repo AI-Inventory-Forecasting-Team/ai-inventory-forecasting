@@ -67,8 +67,33 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-cors_allow_credentials = True
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_METHODS = [
+        "DELETE",
+        "GET",
+        "OPTIONS",
+        "PATCH",
+        "POST",
+        "PUT",
+]
+
+CORS_ALLOW_HEADERS = [
+        "accept",
+        "accept-encoding",
+        "authorization",
+        "content-type",
+        "dnt",
+        "origin",
+        "user-agent",
+        "x-csrftoken",
+        "x-requested-with",
+]
+
+# cors_allow_credentials = True
+CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_ALL_ORIGINS = True  # 모든 출처에서 오는 요청을 허용하려면 True로 설정
+CORS_ALLOWED_ORIGINS = [
+    "http://3.38.149.8",
+]
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
