@@ -578,7 +578,7 @@ https://github.com/AI-Inventory-Forecasting-Team/ai-inventory-forecasting.git
 
 - 지정한 브랜치가 로컬 저장소에 존재하지 않아 발생하는 문제입니다. 
 
-### 8.2.2. 해결 방법
+#### 8.2.2. 해결 방법
 ```shell
 # 현재 브랜치 목록 확인
 git branch
@@ -675,7 +675,7 @@ class UserDetailView(generics.RetrieveAPIView):
         return self.request.user
 ```
 
-- UserDetailView는 항상 로그인한 사용자의 정보를 반환하도록 설정하여 해결하였습니다. 
+- UserDetailView는 항상 로그인한 사용자의 정보를 반환하도록 get_object 메서드를 오버라이딩하여 해결하였습니다. 
 
 ### 8.7. 
 
