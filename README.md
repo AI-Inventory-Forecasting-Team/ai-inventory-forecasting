@@ -478,7 +478,7 @@ gantt
                 <img src="picture/search.gif" width="100%" >
             </td>
             <td>
-                <img src="picture/chatbot.gif" width="100%" >
+                <img src="picture/chatbot_play.gif" width="100%" >
             </td>
         </tr>
         <tr>
@@ -487,7 +487,7 @@ gantt
         </tr>
         <tr>
             <td>
-	        <img src="picture/delete.gif" width="100%" >
+	        <img src="picture/delete_play.gif" width="100%" >
             </td>
             <td>
                 <img src="picture/post_play.gif" width="100%">
