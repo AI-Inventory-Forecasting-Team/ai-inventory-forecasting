@@ -244,20 +244,21 @@ classDiagram
   class 댓글 {
     +GET /api/posts/post_id/comments/
     +GET /api/posts/post_id/comments/id/
-    +PUT /api/posts/post_id/comments/id/update/
-    +PATCH /api/posts/post_id/comments/id/update/
-    +DELETE /api/posts/post_id/comments/id/delete/
+    +PUT /api/posts/post_id/comments/id/
+    +PATCH /api/posts/post_id/comments/id/
+    +DELETE /api/posts/post_id/comments/id/
     +POST /api/posts/post_id/comments/create/
   }
 
   class 대댓글 {
     +GET /api/posts/post_id/comments/comment_id/replies/
-    +GET /api/posts/post_id/comments/comment_id/replies/reply_id/
-    +PUT /api/posts/post_id/comments/replies/id/update/
-    +PATCH /api/posts/post_id/comments/replies/id/update/
-    +DELETE /api/posts/post_id/comments/replies/id/delete/
     +POST /api/posts/post_id/comments/comment_id/replies/create/
+    +GET /api/posts/post_id/comments/replies/id/
+    +PUT /api/posts/post_id/comments/replies/id/
+    +PATCH /api/posts/post_id/comments/replies/id/
+    +DELETE /api/posts/post_id/comments/replies/id/
   }
+
 
   class 스키마 {
     +GET /api/schema/
