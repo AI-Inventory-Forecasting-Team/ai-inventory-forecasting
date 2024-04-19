@@ -24,10 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-l79n9ionkbb)icn3wchplv9-52or0tjaer)77yt8^3%cxway6^"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
-
+# ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["3.38.149.8"]
 
 # Application definition
 
@@ -90,11 +90,11 @@ CORS_ALLOW_HEADERS = [
         "x-requested-with",
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True  # 모든 출처에서 오는 요청을 허용하려면 True로 설정
+# CORS_ALLOW_ALL_ORIGINS = True  # 모든 출처에서 오는 요청을 허용하려면 True로 설정
 CORS_ALLOW_CREDENTIALS = True
-# CORS_ALLOWED_ORIGINS = [
-#     "http://서버 ip",
-# ]
+CORS_ALLOWED_ORIGINS = [
+    "http://3.38.149.8",
+]
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 

@@ -21,6 +21,10 @@ class PostListView(generics.ListAPIView):
     search_fields = ['title', 'category__name', 'author__username']
     permission_classes = [permissions.IsAuthenticated]  # 인증된 사용자만 접근 가능
 
+    def get_queryset(self):
+        # 'created_at' 필드를 기준으로 최신 순으로 정렬합니다.
+        return Post.objects.all().order_by('-created_at')
+
 
 class PostDetailView(generics.RetrieveAPIView):
     queryset = Post.objects.all()
