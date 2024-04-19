@@ -148,21 +148,21 @@
 
 - comments 앱
 
-| URL Pattern                                           | HTTP Method | 설명                    | 로그인 권한 필요 | 작성자 권한 필요 |
-|-------------------------------------------------------|-------------|-------------------------|:----------------:|:----------------:|
-| /api/posts/{post_id}/comments/                        | GET         | 게시물 댓글 조회        |                  |                  |
-| /api/posts/{post_id}/comments/{id}/                   | GET         | 댓글 상세 조회          |                  |                  |
-| /api/posts/{post_id}/comments/{id}/update/            | PUT         | 댓글 수정               | ✅               | ✅               |
-| /api/posts/{post_id}/comments/{id}/update/            | PATCH       | 댓글 부분 수정          | ✅               | ✅               |
-| /api/posts/{post_id}/comments/{id}/delete/            | DELETE      | 댓글 삭제               | ✅               | ✅               |
-| /api/posts/{post_id}/comments/create/                 | POST        | 댓글 작성               | ✅               |                  |
-| /api/posts/{post_id}/comments/replies/{id}/           | GET         | 대댓글 상세 조회        |                  |                  |
-| /api/posts/{post_id}/comments/replies/{id}/update/    | PUT         | 대댓글 전체 수정        | ✅               | ✅               |
-| /api/posts/{post_id}/comments/replies/{id}/update/    | PATCH       | 대댓글 부분 수정        | ✅               | ✅               |
-| /api/posts/{post_id}/comments/replies/{id}/delete/    | DELETE      | 대댓글 삭제             | ✅               | ✅               |
-| /api/posts/{post_id}/comments/{comment_id}/replies/   | GET         | 대댓글 리스트 조회      |                  |                  |
-| /api/posts/{post_id}/comments/{comment_id}/replies/{reply_id}/ | GET | 대댓글 상세 조회      |                  |                  |
-| /api/posts/{post_id}/comments/{comment_id}/replies/create/ | POST | 대댓글 작성            | ✅               |                  |
+| URL Pattern                                            | HTTP Method | 설명                    | 로그인 권한 필요 | 작성자 권한 필요 |
+|--------------------------------------------------------|-------------|-------------------------|:----------------:|:----------------:|
+| /api/posts/{post_id}/comments/                         | GET         | 게시물 댓글 조회        |                  |                  |
+| /api/posts/{post_id}/comments/{id}/                    | GET         | 댓글 상세 조회          |                  |                  |
+| /api/posts/{post_id}/comments/{id}/                    | PUT         | 댓글 수정               | ✅               | ✅               |
+| /api/posts/{post_id}/comments/{id}/                    | PATCH       | 댓글 부분 수정          | ✅               | ✅               |
+| /api/posts/{post_id}/comments/{id}/                    | DELETE      | 댓글 삭제               | ✅               | ✅               |
+| /api/posts/{post_id}/comments/create/                  | POST        | 댓글 작성               | ✅               |                  |
+| /api/posts/{post_id}/comments/{comment_id}/replies/    | GET         | 대댓글 리스트 조회      |                  |                  |
+| /api/posts/{post_id}/comments/{comment_id}/replies/create/ | POST    | 대댓글 작성            | ✅               |                  |
+| /api/posts/{post_id}/comments/replies/{id}/            | GET         | 대댓글 상세 조회        |                  |                  |
+| /api/posts/{post_id}/comments/replies/{id}/            | PUT         | 대댓글 전체 수정        | ✅               | ✅               |
+| /api/posts/{post_id}/comments/replies/{id}/            | PATCH       | 대댓글 부분 수정        | ✅               | ✅               |
+| /api/posts/{post_id}/comments/replies/{id}/            | DELETE      | 대댓글 삭제             | ✅               | ✅               |
+
 
 
 
@@ -244,20 +244,21 @@ classDiagram
   class 댓글 {
     +GET /api/posts/post_id/comments/
     +GET /api/posts/post_id/comments/id/
-    +PUT /api/posts/post_id/comments/id/update/
-    +PATCH /api/posts/post_id/comments/id/update/
-    +DELETE /api/posts/post_id/comments/id/delete/
+    +PUT /api/posts/post_id/comments/id/
+    +PATCH /api/posts/post_id/comments/id/
+    +DELETE /api/posts/post_id/comments/id/
     +POST /api/posts/post_id/comments/create/
   }
 
   class 대댓글 {
     +GET /api/posts/post_id/comments/comment_id/replies/
-    +GET /api/posts/post_id/comments/comment_id/replies/reply_id/
-    +PUT /api/posts/post_id/comments/replies/id/update/
-    +PATCH /api/posts/post_id/comments/replies/id/update/
-    +DELETE /api/posts/post_id/comments/replies/id/delete/
     +POST /api/posts/post_id/comments/comment_id/replies/create/
+    +GET /api/posts/post_id/comments/replies/id/
+    +PUT /api/posts/post_id/comments/replies/id/
+    +PATCH /api/posts/post_id/comments/replies/id/
+    +DELETE /api/posts/post_id/comments/replies/id/
   }
+
 
   class 스키마 {
     +GET /api/schema/
